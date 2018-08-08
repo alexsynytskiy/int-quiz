@@ -8,25 +8,24 @@ use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "question".
+ * This is the model class for table "question_answer".
  *
  * @property integer $id
  * @property string $text
- * @property integer $group_id
+ * @property integer $is_correct
+ * @property integer $question_id
  * @property integer $created_at
- * @property integer $updated_at
+ * @property string $params
  *
  */
-class Question extends \yii\db\ActiveRecord
+class Answer extends \yii\db\ActiveRecord
 {
-    const TIME_FOR_ANSWER = 600;
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'question';
+        return 'question_answer';
     }
 
     /**
@@ -35,9 +34,9 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'text', 'group_id'], 'safe'],
-            [['text'], 'string', 'min' => 1, 'max' => 1028],
-            [['group_id'], 'integer'],
+            [['created_at', 'question_id', 'text', 'is_correct'], 'safe'],
+            [['text'], 'string', 'min' => 1, 'max' => 512],
+            [['question_id', 'is_correct'], 'integer'],
         ];
     }
 
@@ -48,9 +47,8 @@ class Question extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'text' => AppMsg::t('Питання'),
+            'text' => AppMsg::t('Відповідь'),
             'created_at' => AppMsg::t('Створено'),
-            'updated_at' => AppMsg::t('Оновлено'),
         ];
     }
 
@@ -61,7 +59,6 @@ class Question extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
                 ],
                 'value' => new Expression('NOW()'),
             ],
@@ -71,16 +68,8 @@ class Question extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswers()
+    public function getQuestion()
     {
-        return $this->hasMany(Answer::className(), ['question_id' => 'id']);
-    }
-
-    /**
-     * @return \yii\db\ActiveQuery
-     */
-    public function getGroup()
-    {
-        return $this->hasOne(QuestionGroup::className(), ['id' => 'group_id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 }

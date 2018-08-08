@@ -2,31 +2,29 @@
 
 namespace app\models;
 
-use app\components\AppMsg;
 use yii\behaviors\TimestampBehavior;
 use yii\db\ActiveRecord;
 use yii\db\Expression;
 
 /**
- * This is the model class for table "question".
+ * This is the model class for table "question_answer_user".
  *
  * @property integer $id
- * @property string $text
- * @property integer $group_id
+ * @property integer $user_id
+ * @property integer $question_id
+ * @property integer $answer_id
  * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $answered_at
  *
  */
-class Question extends \yii\db\ActiveRecord
+class UserAnswer extends \yii\db\ActiveRecord
 {
-    const TIME_FOR_ANSWER = 600;
-
     /**
      * @inheritdoc
      */
     public static function tableName()
     {
-        return 'question';
+        return 'question_answer_user';
     }
 
     /**
@@ -35,9 +33,8 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'text', 'group_id'], 'safe'],
-            [['text'], 'string', 'min' => 1, 'max' => 1028],
-            [['group_id'], 'integer'],
+            [['answered_at', 'created_at', 'question_id', 'user_id', 'answer_id'], 'safe'],
+            [['question_id', 'user_id', 'answer_id'], 'integer'],
         ];
     }
 
@@ -48,9 +45,6 @@ class Question extends \yii\db\ActiveRecord
     {
         return [
             'id' => 'ID',
-            'text' => AppMsg::t('Питання'),
-            'created_at' => AppMsg::t('Створено'),
-            'updated_at' => AppMsg::t('Оновлено'),
         ];
     }
 
@@ -61,7 +55,7 @@ class Question extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['updated_at'],
+                    ActiveRecord::EVENT_BEFORE_UPDATE => ['answered_at'],
                 ],
                 'value' => new Expression('NOW()'),
             ],
@@ -71,16 +65,24 @@ class Question extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswers()
+    public function getQuestion()
     {
-        return $this->hasMany(Answer::className(), ['question_id' => 'id']);
+        return $this->hasOne(Question::className(), ['id' => 'question_id']);
     }
 
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getGroup()
+    public function getUser()
     {
-        return $this->hasOne(QuestionGroup::className(), ['id' => 'group_id']);
+        return $this->hasOne(SiteUser::className(), ['id' => 'user_id']);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswers()
+    {
+        return $this->hasOne(Answer::className(), ['id' => 'answer_id']);
     }
 }

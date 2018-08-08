@@ -22,8 +22,8 @@ use yii\web\IdentityInterface;
  * @property integer $total_smart
  * @property string $status
  * @property string $auth_key
- * @property string $created_at
- * @property string $updated_at
+ * @property integer $created_at
+ * @property integer $updated_at
  *
  * @property IdentityInterface|null|SiteUser $identity The identity object associated with the currently logged-in
  * user. `null` is returned if the user is not logged in (not authenticated).
@@ -48,6 +48,13 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
      * @var string
      */
     public $passwordRepeat;
+
+    /**
+     * @return string
+     */
+    public static function answersTableName() {
+        return 'question_answer_user';
+    }
 
     /**
      * @inheritdoc
@@ -228,5 +235,13 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
     public function updateLoginCount()
     {
         $this->updateCounters(['login_count' => 1]);
+    }
+
+    /**
+     * @return \yii\db\ActiveQuery
+     */
+    public function getAnswers() {
+        return $this->hasMany(Answer::className(), ['id' => 'answer_id'])
+            ->viaTable(static::answersTableName(), ['user_id' => 'id']);
     }
 }

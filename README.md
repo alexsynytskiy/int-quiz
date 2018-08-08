@@ -1,8 +1,8 @@
-## EasyiiCMS
-Control panel and tools based on php framework Yii2. Easy cms for easy websites.
+## Quiz game
+Question-answer game with timer and scoreboard
 
 #### Requirements
-The main requirement is PHP >= 5.4, Imagick extension. Other requirements you can see after download.
+The main requirement is PHP >= 5.4
 
 Direcotry Structure
 ```
@@ -14,16 +14,9 @@ app/                main application folder
     media/          contains css, images and js scripts
     views/          contains application configurations
 assets/             contains published files
+modules/            contains modules
+    easyii/         EasYii CMS folder
 runtime/            contains files generated during runtime
 uploads/            contains all uploaded files
 vendor/             contains dependent 3rd-party packages
 ```
-
-#### You can find full information in links bellow ####
-* [Homepage](http://easyiicms.com)
-* [Installation](http://easyiicms.com/docs/install)
-* [Demo](http://demo.easyiicms.com/)
-
-#### Contacts ####
-
-Feel free to email me on noumohope@gmail.com
