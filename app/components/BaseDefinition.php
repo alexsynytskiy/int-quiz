@@ -37,32 +37,10 @@ class BaseDefinition
     }
 
     /**
-     * @param string $returnType
-     *
-     * @return array
+     * @return int
      */
-    public static function getListPublishedStatuses($returnType = 'key-value')
+    public static function getSessionExpiredTime()
     {
-        $statuses = [
-            ActiveRecord::IS_PUBLISH => AppMsg::t('Опубликован'),
-            ActiveRecord::IS_NOT_PUBLISH => AppMsg::t('Не опубликован'),
-        ];
-
-        return static::getListDataByReturnType($statuses, $returnType);
-    }
-
-    /**
-     * @param string $returnType
-     *
-     * @return array
-     */
-    public static function getListArchivedStatuses($returnType = 'key-value')
-    {
-        $statuses = [
-            ActiveRecord::IS_ARCHIVED => AppMsg::t('Архивирован'),
-            ActiveRecord::IS_NOT_ARCHIVED => AppMsg::t('Активен'),
-        ];
-
-        return static::getListDataByReturnType($statuses, $returnType);
+        return 31536000; //1 year
     }
 }

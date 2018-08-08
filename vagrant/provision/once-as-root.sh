@@ -75,9 +75,9 @@ echo "Done!"
 
 info "Configure PHP-FPM"
 mv /etc/php/5.6/fpm/php.ini /etc/php/5.6/fpm/php.ini.dmp
-ln -s /var/www/vidkruvai/vagrant/php/fpm/php.ini /etc/php/5.6/fpm/php.ini
+ln -s /var/www/intellias/vagrant/php/fpm/php.ini /etc/php/5.6/fpm/php.ini
 mv /etc/php/5.6/fpm/pool.d/www.conf /etc/php/5.6/fpm/pool.d/www.conf.dmp
-ln -s /var/www/vidkruvai/vagrant/php/fpm/pool.d/www.conf /etc/php/5.6/fpm/pool.d/www.conf
+ln -s /var/www/intellias/vagrant/php/fpm/pool.d/www.conf /etc/php/5.6/fpm/pool.d/www.conf
 sed -i 's/user = www-data/user = vagrant/g' /etc/php/5.6/fpm/pool.d/www.conf
 sed -i 's/group = www-data/group = vagrant/g' /etc/php/5.6/fpm/pool.d/www.conf
 sed -i 's/owner = www-data/owner = vagrant/g' /etc/php/5.6/fpm/pool.d/www.conf
@@ -88,13 +88,13 @@ sed -i 's/user www-data/user vagrant/g' /etc/nginx/nginx.conf
 echo "Done!"
 
 info "Enabling site configuration"
-ln -s /var/www/vidkruvai/vagrant/nginx/app.conf /etc/nginx/sites-enabled/app.conf
+ln -s /var/www/intellias/vagrant/nginx/app.conf /etc/nginx/sites-enabled/app.conf
 echo "Done!"
 
 info "Enabling xdebug configuration"
 mv /etc/php/5.6/mods-available/xdebug.ini /etc/php/5.6/mods-available/xdebug.ini.dmp
-cp /var/www/vidkruvai/vagrant/php/mods-available/xdebug.ini /var/www/vidkruvai/vagrant/php/mods-available/xdebug-local.ini
-ln -s /var/www/vidkruvai/vagrant/php/mods-available/xdebug-local.ini /etc/php/5.6/mods-available/xdebug.ini
+cp /var/www/intellias/vagrant/php/mods-available/xdebug.ini /var/www/intellias/vagrant/php/mods-available/xdebug-local.ini
+ln -s /var/www/intellias/vagrant/php/mods-available/xdebug-local.ini /etc/php/5.6/mods-available/xdebug.ini
 echo "Done!"
 
 info "Install composer"

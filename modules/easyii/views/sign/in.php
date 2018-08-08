@@ -27,7 +27,7 @@ $this->title = Yii::t('easyii', 'Sign in');
             </div>
             <div class="text-center">
                 <a class="logo" href="/" style="line-height: 40px;" target="_blank">
-                    <img style="height: 40px;" src="<?= $asset->baseUrl ?>/img/logo-white.svg">
+                    <img style="height: 40px;" src="<?= $asset->baseUrl ?>/img/logo-white.png">
                 </a>
             </div>
         </div>

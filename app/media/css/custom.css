@@ -1,17 +1,11 @@
-@font-face {
-    font-family: 'rubik_regular';
-    src: url('/app/media/fonts/Rubik-Regular.ttf') format('opentype');
-    font-style: normal;
-}
-
-@font-face {
-    font-family: 'rubik_medium';
-    src: url('/app/media/fonts/Rubik-Medium.ttf') format('opentype');
-    font-style: normal;
-}
+@import url('https://fonts.googleapis.com/css?family=Play:400,700&subset=cyrillic,cyrillic-ext,latin-ext');
 
 body {
-    font-family: 'rubik_regular';
+    font-family: 'Play', sans-serif;
+    color: #263745;
+    background: #000 !important;
+    position: relative;
+    min-width: 474px;
 }
 
 .clearfix:after {
@@ -24,40 +18,6 @@ body {
 
 .nopadding {
     padding: 0 !important;
-}
-
-#main-menu {
-    background: none;
-    border: none;
-    padding: 0;
-    margin: 0;
-    box-shadow: 0 0 21px #e4e4e4;
-}
-
-#main-menu .navbar-brand {
-    padding: 0;
-    height: 100px;
-    position: relative;
-    margin-left: 0;
-}
-
-#main-menu .dropdown-menu > li > a {
-    background-color: white;
-}
-
-#main-menu .dropdown-menu > li:first-child > a {
-    border-radius: 3px 3px 0 0;
-}
-
-#main-menu .dropdown-menu > .active > a,
-#main-menu .dropdown-menu > .active > a:hover,
-#main-menu .dropdown-menu > .active > a:focus {
-    color: #000;
-    background-color: white;
-}
-
-h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
-    text-transform: none;
 }
 
 #yii-debug-toolbar-min img {
@@ -89,255 +49,103 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
     margin-bottom: 0 !important;
 }
 
-.navbar-brand {
+.stars {
+    width: 100%;
+    padding: 0;
     margin: 0;
+    background: url(/app/media/img/2.png) no-repeat center;
+    background-size: cover;
+}
+
+#gradient {
+    width: 100%;
     padding: 0;
-    height: 70px;
+    margin: 0;
+    opacity: 0.6;
 }
 
-.navbar-brand img {
-    height: 40px;
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-}
-
-.affix {
-    background-color: rgba(255, 255, 255, 0.8) !important;
-}
-
-.navbar-inverse .navbar-nav > li > a {
-    color: #000;
-}
-
-.navbar-inverse {
-    border: none;
-}
-
-.navbar-toggle {
-    margin-top: 29px;
-    border: none;
-}
-
-.navbar-inverse .navbar-toggle {
-    background-color: transparent;
-    position: absolute;
-    right: 0;
-    top: 0;
-    bottom: 0;
-    margin-top: 0;
-    margin-bottom: 0;
-    font-size: 19px;
-    padding: 0;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover,
-.navbar-inverse .navbar-nav > li > a:focus,
-.navbar-inverse .navbar-nav > li > a:focus .caret,
-.navbar-inverse .navbar-nav > li.active > a,
-.navbar-inverse .navbar-nav > li > a:hover .caret {
-    color: #000;
-}
-
-.navbar-inverse .navbar-nav > li > a {
-    text-decoration: none;
-    padding-left: 20px;
-    padding-right: 20px;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover {
-    color: #e9414d;
-}
-
-.navbar-inverse .navbar-nav > li > a:hover .caret {
-    color: #565454;
-}
-
-.navbar-inverse .navbar-nav > li > a:focus {
-    outline: none;
-    outline-offset: 0;
-    overflow: initial;
-}
-
-.navbar-inverse .navbar-nav > .open > a,
-.navbar-inverse .navbar-nav > .open > a:hover,
-.navbar-inverse .navbar-nav > .open > a:focus {
-    color: #000;
-}
-
-.tp-caption.custom_theme_big, .tp-caption.custom_theme_very_small {
-    color: #000;
-}
-
-.btn.btn-default {
-    border-radius: 3px;
-    border: none;
-    background-color: #000;
-    color: #fff;
-    font-size: 16px;
-    margin-top: 10px;
-}
-
-.btn.btn-default:hover {
-    border: none;
-    background-color: #2f2d2d;
-    color: #fff;
-}
-
-.btn:after {
-    display: none;
-}
-
-#main-menu {
-    min-height: 100px;
-}
-
-#main-menu.affix {
-    padding-top: 0;
-}
-
-.navbar-nav > li.open > .dropdown-menu, .open .dropdown-menu {
-    border: none;
-    border-radius: 3px;
-    top: 110px;
-}
-
-.dropdown-menu > li > a {
-    color: #000;
-}
-
-.dropdown-menu > li > a:hover {
-    color: #565454;
-}
-
-.dropdown-menu > .active > a, .dropdown-menu > .active > a:hover, .dropdown-menu > .active > a:focus {
+.steps-block {
+    max-width: 800px;
+    min-width: 474px;
     background-color: #fff;
-    color: #000;
-}
-
-.navbar-inverse .navbar-nav > li > a.active .underline {
-    -webkit-transform: scaleX(1);
-    transform: scaleX(1);
-}
-
-.navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-    border-width: 2px;
-    border-color: rgba(233, 65, 77, 1);
-}
-
-article img {
-    max-width: 100%;
-}
-
-.navbar-inverse .navbar-toggle:hover, .navbar-inverse .navbar-toggle:focus {
-    background-color: transparent;
-}
-
-.navbar-header {
-    position: relative;
-}
-
-.navbar-toggle .icon-bar {
-    display: block;
-    width: 15px;
-    height: 1px;
-    border-radius: 1px;
-}
-
-.navbar-fixed-top .navbar-collapse, .navbar-fixed-bottom .navbar-collapse {
-    max-height: none;
-}
-
-.navbar-inverse .navbar-nav > .active > a,
-.navbar-inverse .navbar-nav > .active > a:hover,
-.navbar-inverse .navbar-nav > .active > a:focus {
-    color: #000;
-    background-color: transparent;
-}
-
-.padding {
-    padding: 35px 0;
-}
-
-.navbar-inverse .navbar-toggle .icon-bar {
-    background-color: #000;
-}
-
-.navbar-mobile-rows {
-    float: left;
-    margin-right: 10px;
-    margin-top: 10px;
-}
-
-.navbar-toggle .icon-bar + .icon-bar {
-    margin-top: 6px;
-}
-
-footer {
-    min-height: 170px;
-    background-color: #2DCFD5;
-}
-
-footer .rights {
-    font-size: 18px;
-    line-height: 170px;
-    font-family: 'rubik_medium';
-    color: #fff;
-    text-align: right;
-}
-
-footer .footer-logo {
-    height: 170px;
-    position: relative;
-}
-
-footer .footer-logo img {
+    border-radius: 20px;
     position: absolute;
-    top: 0;
-    bottom: 0;
+    top: 80px;
+    margin: auto;
     left: 0;
     right: 0;
-    margin: auto;
-    width: 100%;
+    text-align: center;
+    padding: 64px;
 }
 
-footer .socials {
-    position: relative;
-    height: 170px;
+.steps-block.register {
+    min-height: 836px;
 }
 
-footer .socials-block {
-    position: absolute;
-    top: 0;
-    bottom: 0;
-    margin-top: auto;
-    margin-bottom: auto;
-    height: 30px;
+.steps-block.login {
+    min-height: 600px;
 }
 
-footer .social-icon:first-child {
-    margin-right: 5px;
+form#user-register, form#user-login {
+    max-width: 400px;
+    margin: 0 auto;
 }
 
-footer .social-icon {
-    height: 30px;
-    width: 30px;
-    float: left;
-    margin-right: 15px;
+form input.form-control {
+    height: 54px;
+    border-radius: 10px;
 }
 
-footer .phone-number {
-    font-size: 18px;
-    line-height: 30px;
-    font-family: 'rubik_medium';
+form button.link-button {
+    width: 400px;
+    background-color: #45D6AD;
+    border: none;
+    height: 54px;
+    border-radius: 10px;
     color: #fff;
-    -webkit-transition: all ease 0.5s;
-    -moz-transition: all ease 0.5s;
-    -o-transition: all ease 0.5s;
-    -ms-transition: all ease 0.5s;
-    transition: all ease 0.5s;
+    line-height: 28px;
+    font-size: 15px;
+    margin-bottom: 16px;
+}
+
+.form-z-index {
+    padding: 0;
+}
+
+#registerform-captchauser, #loginform-captchauser {
+    height: 54px;
+    border-radius: 10px;
+    border: 1px solid #ccc;
+    width: 285px;
+    padding: 15px;
+}
+
+.field-registerform-captchauser, .field-loginform-captchauser {
+    height: 54px;
+}
+
+.steps-block .logo {
+    background: url(/app/media/img/logo.png) no-repeat;
+    background-size: 300px 100px;
+    height: 100px;
+    width: 300px;
+    margin: 0 auto 30px;
+}
+
+.steps-block .step-title {
+    font-size: 22px;
+    margin-bottom: 30px;
+    font-weight: bold;
+}
+
+.steps-block .step-subtitle {
+    font-size: 20px;
+    margin-bottom: 15px;
+    font-weight: bold;
+}
+
+form a {
+    color: #45D6AD;
 }
 
 @media (max-width: 1199px) {
@@ -349,113 +157,19 @@ footer .phone-number {
 }
 
 @media (min-width: 992px) {
-    footer .social-icon-pack {
-        float: left;
-    }
+
 }
 
 @media (max-width: 991px) {
-    .form-control {
-        font-size: 16px;
-    }
 
-    footer {
-        padding-top: 60px;
-        padding-bottom: 50px;
-    }
-
-    footer .rights {
-        text-align: center;
-        line-height: 40px;
-        margin-top: 100px;
-    }
-
-    footer .footer-logo {
-        height: 60px;
-        margin-top: -115px;
-    }
-
-    footer .socials {
-        height: 110px;
-    }
-
-    footer .socials-block {
-        left: 0;
-        right: 0;
-        margin-left: auto;
-        margin-right: auto;
-        top: 55px;
-    }
-
-    footer .social-icon-pack {
-        display: block;
-        height: 30px;
-        width: 80px;
-        margin: 0 auto;
-    }
-
-    footer .phone-number {
-        display: block;
-        text-align: center;
-        margin-top: 20px;
-    }
 }
 
 @media (max-width: 767px) {
-    .navbar-inverse {
-        background-color: rgba(255, 255, 255, 0.5);
-    }
 
-    .logos.big {
-        display: none;
-    }
-
-    #partners.page-block .description {
-        margin-bottom: 30px;
-    }
-
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a,
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:hover,
-    .navbar-inverse .navbar-nav .open .dropdown-menu > .active > a:focus {
-        color: #302f31;
-        background-color: transparent;
-    }
-
-    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-        background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    .navbar-brand img {
-        padding-left: 15px;
-    }
-
-    .container > .navbar-header {
-        background-color: rgba(255, 255, 255, 0.9);
-    }
-
-    .navbar-inverse .navbar-nav > li > a {
-        display: block;
-        text-align: center;
-    }
-
-    .navbar-nav > li > a {
-        margin: 0;
-        display: inline-block;
-    }
-
-    .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
-        color: #000;
-    }
-
-    .navbar-inverse .navbar-collapse, .navbar-inverse .navbar-form {
-        margin-top: 0;
-    }
 }
 
 @media (min-width: 768px) {
-    .navbar-inverse .navbar-nav li:last-child a {
-        padding-right: 0;
-    }
+
 }
 
 @media (max-width: 636px) {

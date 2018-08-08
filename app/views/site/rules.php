@@ -1,6 +1,8 @@
 <?php
 
 /* @var $this yii\web\View */
+/* @var $name string */
+/* @var $points string */
 
 $asset = \app\assets\AppAsset::register($this);
 
@@ -12,7 +14,7 @@ $baseUrl = $asset->baseUrl;
     <div class="container">
         <div class="row">
             <div class="col-md-12">
-                Error
+                Rules for <?= $name . ' ' . $points ?>
             </div>
         </div>
     </div>

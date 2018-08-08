@@ -10,11 +10,11 @@ Yii::setAlias('@yii/easyii', __DIR__.'/modules/easyii');
 
 $config = require(__DIR__ . '/app/config/web.php');
 
-$application = new yii\web\Application($config);
+$application = new \yii\web\Application($config);
 
 Yii::$app->setComponents([
     'seo' => [
-        'class' => \yii\easyii\components\Seo::class,
+        'class' => \yii\easyii\components\Seo::className(),
         'view'  => Yii::$app->getView(),
     ]
 ]);

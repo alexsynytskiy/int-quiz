@@ -3,6 +3,14 @@ namespace yii\easyii\models;
 
 use Yii;
 
+/**
+ * Class Admin
+ * @package yii\easyii\models
+ *
+ * @property integer $admin_id
+ * @property string $username
+ * @property string $password
+ */
 class Admin extends \yii\easyii\components\ActiveRecord implements \yii\web\IdentityInterface
 {
     static $rootUser = [

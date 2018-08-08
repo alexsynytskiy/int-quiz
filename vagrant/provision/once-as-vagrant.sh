@@ -17,7 +17,7 @@ function info {
 info "Provision-script user: `whoami`"
 
 info "Add link to project in home directory"
-ln -s /var/www/vidkruvai /home/vagrant/vidkruvai
+ln -s /var/www/intellias /home/vagrant/intellias
 echo "Done!"
 
 info "Configure composer"
@@ -29,10 +29,10 @@ composer global require "codeception/codeception=2.0.*" "codeception/specify=*" 
 echo 'export PATH=/home/vagrant/.config/composer/vendor/bin:$PATH' | tee -a /home/vagrant/.profile
 
 info "Install project dependencies"
-cd /var/www/vidkruvai
+cd /var/www/intellias
 
 info "Create bash-alias 'app' for vagrant user"
-echo 'alias app="cd /var/www/vidkruvai"' | tee /home/vagrant/.bash_aliases
+echo 'alias app="cd /var/www/intellias"' | tee /home/vagrant/.bash_aliases
 
 info "Enabling colorized prompt for guest console"
 sed -i "s/#force_color_prompt=yes/force_color_prompt=yes/" /home/vagrant/.bashrc
