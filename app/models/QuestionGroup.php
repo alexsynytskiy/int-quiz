@@ -7,9 +7,11 @@ namespace app\models;
  *
  * @property integer $id
  * @property string $name
- * @property integer $starting_at
- * @property integer $ending_at
+ * @property string $description
+ * @property string $starting_at
+ * @property string $ending_at
  *
+ * @property Question[] $questions
  */
 class QuestionGroup extends \yii\db\ActiveRecord
 {
@@ -28,7 +30,7 @@ class QuestionGroup extends \yii\db\ActiveRecord
     {
         return [
             [['starting_at', 'ending_at', 'name'], 'safe'],
-            [['name'], 'string'],
+            [['name', 'description'], 'string'],
         ];
     }
 
@@ -40,6 +42,7 @@ class QuestionGroup extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'name' => 'Назва',
+            'description' => 'Опис',
         ];
     }
 

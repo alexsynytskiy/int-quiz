@@ -59,26 +59,6 @@ $(document).ready(function () {
         });
     }
 
-    /**
-     * PNotify executing
-     * @type {jQuery}
-     */
-    var $flashMessages = $('#landings-flash-messages').find('.message');
-
-    if ($flashMessages.length) {
-        $flashMessages.each(function (i) {
-            var $msg = $(this);
-
-            new PNotify({
-                title: $msg.data('title'),
-                text: $msg.text(),
-                icon: $msg.data('icon'),
-                type: $msg.data('style'),
-                delay: 4000
-            });
-        });
-    }
-
     var colors = [
             [159, 108, 199],
             [65, 84, 100],

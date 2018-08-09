@@ -13,8 +13,9 @@ use yii\db\Expression;
  * @property integer $id
  * @property string $text
  * @property integer $group_id
- * @property integer $created_at
- * @property integer $updated_at
+ * @property integer $reward
+ * @property string $created_at
+ * @property string $updated_at
  *
  */
 class Question extends \yii\db\ActiveRecord
@@ -35,9 +36,9 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'text', 'group_id'], 'safe'],
+            [['created_at', 'updated_at', 'text', 'group_id', 'reward'], 'safe'],
             [['text'], 'string', 'min' => 1, 'max' => 1028],
-            [['group_id'], 'integer'],
+            [['group_id', 'reward'], 'integer'],
         ];
     }
 
@@ -49,6 +50,7 @@ class Question extends \yii\db\ActiveRecord
         return [
             'id' => 'ID',
             'text' => AppMsg::t('Питання'),
+            'reward' => AppMsg::t('Нагорода'),
             'created_at' => AppMsg::t('Створено'),
             'updated_at' => AppMsg::t('Оновлено'),
         ];

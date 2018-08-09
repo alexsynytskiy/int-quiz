@@ -48,7 +48,9 @@ $this->title = 'Вход на сайт';
                 ]) ?>
 
                 <?= Html::submitButton('Далі', ['class' => 'link-button']) ?>
-                <?= 'Потрібен аккаунт? ' . Html::a('Реєстрація', '/register', ['class' => 'link-button']) ?>
+                <div class="already">
+                    <?= 'Потрібен аккаунт? ' . Html::a('Реєстрація', '/register', ['class' => 'link-button']) ?>
+                </div>
             </div>
 
             <?php ActiveForm::end(); ?>

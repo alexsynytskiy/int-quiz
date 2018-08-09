@@ -3,12 +3,12 @@
 namespace app\controllers;
 
 use app\components\BaseDefinition;
+use app\components\helpers\QuestionsSetter;
 use app\models\forms\LoginForm;
 use app\models\forms\RegisterForm;
 use app\models\SiteUser;
 use yii\captcha\CaptchaAction;
 use yii\easyii\models\Admin;
-use yii\helpers\VarDumper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -47,7 +47,8 @@ class SiteController extends Controller
         ]);
     }
 
-    public function testDataUser() {
+    public function testDataUser()
+    {
         $params = [
             'name' => '',
             'points' => '',
@@ -78,11 +79,15 @@ class SiteController extends Controller
      */
     public function actionRules()
     {
+        if (\Yii::$app->siteUser->isGuest) {
+            return $this->redirect('/login');
+        }
+
         \Yii::$app->seo->setTitle('Rules');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
-        return $this->render('rules', $this->testDataUser());
+        return $this->render('rules');
     }
 
     /**
@@ -107,7 +112,7 @@ class SiteController extends Controller
             return $this->redirect(['/profile']);
         }
 
-        if(!\Yii::$app->mutex->acquire('multiple-registration')) {
+        if (!\Yii::$app->mutex->acquire('multiple-registration')) {
             \Yii::info('Пользователь попытался выполнить несколько раз подряд регистрацию');
 
             throw new BadRequestHttpException();
@@ -121,7 +126,11 @@ class SiteController extends Controller
             \Yii::$app->siteUser->identity->updateLoginCount();
 
             if (\Yii::$app->siteUser->identity->login_count === 1) {
-                return $this->redirect('/rules');
+                QuestionsSetter::setUserQuestions();
+
+                if (!\Yii::$app->siteUser->identity->agreement_read) {
+                    return $this->redirect('/rules');
+                }
             }
 
             return $this->redirect(['/profile']);
@@ -136,12 +145,13 @@ class SiteController extends Controller
      * @return string|\yii\web\Response
      * @throws BadRequestHttpException
      */
-    public function actionLogin() {
-        if(!\Yii::$app->siteUser->isGuest) {
+    public function actionLogin()
+    {
+        if (!\Yii::$app->siteUser->isGuest && \Yii::$app->siteUser->identity->agreement_read) {
             return $this->redirect(['/profile']);
         }
 
-        if(!\Yii::$app->mutex->acquire('multiple-login')) {
+        if (!\Yii::$app->mutex->acquire('multiple-login')) {
             \Yii::info('Пользователь попытался выполнить несколько раз подряд вход');
 
             throw new BadRequestHttpException();
@@ -149,10 +159,12 @@ class SiteController extends Controller
 
         $model = new LoginForm();
 
-        if($model->load(\Yii::$app->request->post())) {
-            if($model->login()) {
+        if ($model->load(\Yii::$app->request->post()) && $model->login()) {
+            if (\Yii::$app->siteUser->identity->agreement_read) {
                 return $this->redirect(['/profile']);
             }
+
+            return $this->redirect('/rules');
         }
 
         return $this->render('login', [
@@ -163,9 +175,10 @@ class SiteController extends Controller
     /**
      * @return \yii\web\Response
      */
-    public function actionLogout() {
+    public function actionLogout()
+    {
         \Yii::$app->siteUser->logout();
 
-        return parent::goHome();
+        return $this->redirect(['/login']);
     }
 }

@@ -13,8 +13,9 @@ use yii\db\Expression;
  * @property integer $user_id
  * @property integer $question_id
  * @property integer $answer_id
- * @property integer $created_at
- * @property integer $answered_at
+ * @property string $created_at
+ * @property string $started_at
+ * @property string $answered_at
  *
  */
 class UserAnswer extends \yii\db\ActiveRecord
@@ -33,7 +34,7 @@ class UserAnswer extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['answered_at', 'created_at', 'question_id', 'user_id', 'answer_id'], 'safe'],
+            [['started_at', 'answered_at', 'created_at', 'question_id', 'user_id', 'answer_id'], 'safe'],
             [['question_id', 'user_id', 'answer_id'], 'integer'],
         ];
     }
@@ -55,7 +56,6 @@ class UserAnswer extends \yii\db\ActiveRecord
                 'class' => TimestampBehavior::className(),
                 'attributes' => [
                     ActiveRecord::EVENT_BEFORE_INSERT => ['created_at'],
-                    ActiveRecord::EVENT_BEFORE_UPDATE => ['answered_at'],
                 ],
                 'value' => new Expression('NOW()'),
             ],

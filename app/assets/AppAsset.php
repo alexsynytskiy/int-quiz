@@ -46,6 +46,8 @@ class AppAsset extends \yii\web\AssetBundle
         'plugins/isotope-portfolio/js/jquery.fancybox.pack.js',
         'plugins/pnotify/pnotify.min.js',
         'js/jquery.bxslider.js',
+        'js/SiteCore.js',
+        'js/RulesPage.js',
         'js/main.js',
     ];
 

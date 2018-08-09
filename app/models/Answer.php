@@ -14,8 +14,8 @@ use yii\db\Expression;
  * @property string $text
  * @property integer $is_correct
  * @property integer $question_id
- * @property integer $created_at
  * @property string $params
+ * @property string $created_at
  *
  */
 class Answer extends \yii\db\ActiveRecord

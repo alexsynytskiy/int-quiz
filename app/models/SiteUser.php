@@ -19,15 +19,17 @@ use yii\web\IdentityInterface;
  * @property string $nickname
  * @property string $password
  * @property integer $login_count
+ * @property integer $agreement_read
  * @property integer $total_smart
  * @property string $status
  * @property string $auth_key
- * @property integer $created_at
- * @property integer $updated_at
+ * @property string $created_at
+ * @property string $updated_at
  *
  * @property IdentityInterface|null|SiteUser $identity The identity object associated with the currently logged-in
  * user. `null` is returned if the user is not logged in (not authenticated).
  * @property string $passwordWithSalt
+ * @property Answer[] $answers
  *
  */
 class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
@@ -40,6 +42,8 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
      * Salt uses to hash user Password
      */
     const PASSWORD_SALT = 'aowherw34rywherfghweifhso';
+
+    const AGREEMENT_READ = 1;
     /**
      * @var string
      */
@@ -98,6 +102,7 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
             [['password'], 'string', 'min' => 4, 'max' => 60],
             [['userPassword'], 'string', 'min' => 4, 'max' => 60],
             [['name'], 'string', 'max' => 255],
+            [['agreement_read', 'login_count', 'total_smart'], 'integer'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'userPassword'],
         ];
     }
@@ -144,7 +149,10 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
     }
 
     /**
-     * @inheritdoc
+     * @param mixed $token
+     * @param null $type
+     * @return void|IdentityInterface
+     * @throws NotSupportedException
      */
     public static function findIdentityByAccessToken($token, $type = null)
     {
