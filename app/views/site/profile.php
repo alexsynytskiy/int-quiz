@@ -3,6 +3,8 @@
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $points string */
+/* @var $questionGroups \app\models\QuestionGroup[] */
+/* @var $blocksQuestions array */
 
 $asset = \app\assets\AppAsset::register($this);
 
@@ -39,7 +41,9 @@ $baseUrl = $asset->baseUrl;
             </a>
         </div>
     </div>
+
     <div class="separator-space"></div>
+
     <div class="statistics">
         <div class="statistics-wrapper clearfix">
             <div class="nick"><?= $name ?></div>
@@ -51,21 +55,29 @@ $baseUrl = $asset->baseUrl;
     </div>
 
     <div class="questions">
-        <div class="block clearfix">
-            <div class="left-part">
-                <div class="title">Назва блоку з питаннями 1</div>
-                <div class="sub-title">Короткий опис блоку з питаннями для заклику до дії.</div>
-            </div>
-            <div class="right-part">
-                <div class="numbers">
-                    <div class="number correct">1</div>
-                    <div class="number wrong">2</div>
+        <?php foreach ($questionGroups as $group): ?>
+            <div class="block <?= !$group->active ? 'disabled' : '' ?> clearfix">
+                <div class="left-part">
+                    <div class="title"><?= $group->name ?></div>
+                    <div class="sub-title"><?= $group->description ?></div>
                 </div>
-                <div class="start enabled">
-                    <div class="start-title">Старт</div>
-                    <div class="time">10 хв</div>
+                <div class="right-part">
+                    <div class="numbers">
+                        <div class="number correct">1</div>
+                        <div class="number wrong">2</div>
+                    </div>
+                    <?php if($group->active): ?>
+                        <a href="<?= \yii\helpers\Url::to(['/answer-block/' . $group->id]) ?>" class="start enabled">
+                            <div class="text title">Старт</div>
+                            <div class="text sub-title"><?= \app\models\Question::TIME_FOR_ANSWER / 60 ?> хв</div>
+                        </a>
+                    <?php else: ?>
+                        <div class="start disabled">
+                            <div class="icon"></div>
+                        </div>
+                    <?php endif; ?>
                 </div>
             </div>
-        </div>
+        <?php endforeach; ?>
     </div>
 </div>

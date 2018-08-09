@@ -273,6 +273,14 @@ form .already a {
     border: 2px solid #45D6AD;
 }
 
+.steps-block.profile .questions .block:last-child {
+    margin-bottom: 0;
+}
+
+.steps-block.profile .questions .block.disabled {
+    border: 2px solid #CBD5DC;
+}
+
 .steps-block.profile .questions .block .left-part {
     float: left;
     width: calc(100% - 173px);
@@ -299,6 +307,82 @@ form .already a {
     color: #263745;
     line-height: 15px;
     padding-top: 12px;
+}
+
+.steps-block.profile .questions .block .right-part {
+    float: left;
+    width: 173px;
+    height: 100%;
+}
+
+.steps-block.profile .questions .block .right-part .numbers {
+    height: 100%;
+    width: 58px;
+    float: left;
+}
+
+.steps-block.profile .questions .block .right-part .number {
+    height: 50%;
+    border: 2px solid #45D6AD;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+    line-height: 55px;
+    border-top: none;
+}
+
+.steps-block.profile .questions .block.disabled .right-part .number {
+    border: 2px solid #CBD5DC;
+    border-top: none;
+}
+
+.steps-block.profile .questions .block .right-part .number:last-child {
+    border-bottom: none;
+}
+
+.steps-block.profile .questions .block .right-part .start {
+    width: 115px;
+    color: #fff;
+    height: 100%;
+    float: left;
+}
+
+.steps-block.profile .questions .block .right-part .start.enabled {
+    background-color: #45D6AD;
+}
+
+.steps-block.profile .questions .block .right-part .start .text {
+    height: 50%;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 18px;
+    font-weight: bold;
+}
+
+.steps-block.profile .questions .block .right-part .start .text.title {
+    padding-top: 15px;
+    line-height: 40px;
+}
+
+.steps-block.profile .questions .block .right-part .start .text.sub-title {
+    line-height: 30px;
+    font-size: 15px;
+}
+
+.steps-block.profile .questions .block .right-part .start.disabled {
+    position: relative;
+    background-color: #CBD5DC;
+}
+
+.steps-block.profile .questions .block .right-part .start.disabled .icon {
+    height: 40px;
+    width: 40px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    border: 1px solid #fff;
 }
 
 @media (max-width: 1199px) {

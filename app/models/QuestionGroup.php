@@ -15,6 +15,8 @@ namespace app\models;
  */
 class QuestionGroup extends \yii\db\ActiveRecord
 {
+    public $active = false;
+
     /**
      * @inheritdoc
      */

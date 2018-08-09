@@ -6,9 +6,14 @@ use app\components\BaseDefinition;
 use app\components\helpers\QuestionsSetter;
 use app\models\forms\LoginForm;
 use app\models\forms\RegisterForm;
+use app\models\Question;
+use app\models\QuestionGroup;
 use app\models\SiteUser;
+use app\models\UserAnswer;
 use yii\captcha\CaptchaAction;
+use yii\db\Exception;
 use yii\easyii\models\Admin;
+use yii\helpers\ArrayHelper;
 use yii\web\BadRequestHttpException;
 use yii\web\Controller;
 
@@ -31,6 +36,24 @@ class SiteController extends Controller
                 'minLength' => 4,
             ],
         ];
+    }
+
+    /**
+     * @return bool|\yii\web\Response
+     */
+    private function checkUserStatus()
+    {
+        $user = \Yii::$app->siteUser;
+
+        if ($user->isGuest) {
+            return $this->redirect('/login');
+        }
+
+        if (!$user->identity->agreement_read) {
+            return $this->redirect('/rules');
+        }
+
+        return true;
     }
 
     /**
@@ -95,11 +118,58 @@ class SiteController extends Controller
      */
     public function actionProfile()
     {
+        $this->checkUserStatus();
+
         \Yii::$app->seo->setTitle('Profile');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
-        return $this->render('profile', $this->testDataUser());
+        $questionGroups = QuestionGroup::find()->all();
+        $currentTime = time();
+
+        /** @var QuestionGroup $group */
+        foreach ($questionGroups as $group) {
+            if ($currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
+                $group->active = true;
+            }
+        }
+
+        $params = ArrayHelper::merge($this->testDataUser(), [
+            'questionGroups' => $questionGroups,
+        ]);
+
+        return $this->render('profile', $params);
+    }
+
+    /**
+     * @param $id
+     * @return string|\yii\web\Response
+     * @throws Exception
+     */
+    public function actionAnswerBlock($id)
+    {
+        $this->checkUserStatus();
+
+        $group = QuestionGroup::findOne($id);
+
+        if ($group) {
+            $currentTime = time();
+
+            if ($currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
+                $group->active = true;
+            }
+
+            $blockQuestions = Question::find()
+                ->alias('q')
+                ->innerJoin(UserAnswer::tableName() . ' qa', 'qa.question_id = q.id')
+                ->where(['qa.user_id' => \Yii::$app->siteUser->id, 'q.group_id' => $group->id])
+                ->limit(2)
+                ->all();
+        } else {
+            throw new Exception('Такого блоку питань не існує');
+        }
+
+        return $this->render('profile', ['blockQuestions' => $blockQuestions]);
     }
 
     /**
