@@ -17,6 +17,8 @@ use yii\db\Expression;
  * @property string $params
  * @property string $created_at
  *
+ * @property Question $question
+ *
  */
 class Answer extends \yii\db\ActiveRecord
 {

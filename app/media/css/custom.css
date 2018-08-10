@@ -237,7 +237,7 @@ form .already a {
     height: 60px;
 }
 
-.steps-block.profile .statistics {
+.steps-block.profile .statistics, .steps-block.profile .question {
     text-align: center;
     color: #263745;
     font-weight: bold;
@@ -245,9 +245,12 @@ form .already a {
     margin-bottom: 40px;
 }
 
+.steps-block.profile .statistics {
+    height: 25px;
+}
+
 .steps-block.profile .statistics-wrapper {
-    max-width: 200px;
-    margin: 0 auto;
+    display: inline-block;
 }
 
 .steps-block.profile .statistics .nick,
@@ -383,6 +386,71 @@ form .already a {
     right: 0;
     margin: auto;
     border: 1px solid #fff;
+}
+
+.steps-block.profile .question {
+    text-align: left;
+    font-size: 24px;
+    line-height: 20px;
+    padding-bottom: 20px;
+    border-bottom: 2px solid #45D6AD;
+    margin-bottom: 20px;
+    font-family: 'Play', sans-serif;
+}
+
+.steps-block.profile .answer {
+    width: calc(50% - 10px);
+    float: left;
+    height: 98px;
+    border-radius: 10px;
+    border: 2px solid #CBD5DC;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    margin-bottom: 20px;
+    display: table;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.steps-block.profile .answer:hover {
+    cursor: pointer;
+    border: 2px solid #45D6AD;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.steps-block.profile .answer.pressed {
+    background-color: #DFFFF6;
+}
+
+.steps-block.profile .answer.selected {
+    background-color: #45D6AD;
+    color: #fff;
+    border: 2px solid #45D6AD;
+}
+
+.steps-block.profile .answers .answer:nth-child(2n + 1) {
+    margin-right: 20px;
+}
+
+.steps-block.profile .answer .text {
+    display: table-cell;
+    vertical-align: middle;
+}
+
+.steps-block.profile.answer-block .separator-space {
+    height: 40px;
+}
+
+.answer-block #submit-answer {
+    margin-top: 20px;
 }
 
 @media (max-width: 1199px) {

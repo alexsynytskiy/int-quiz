@@ -17,6 +17,9 @@ use yii\db\Expression;
  * @property string $created_at
  * @property string $updated_at
  *
+ * @property Answer[] $answers
+ * @property QuestionGroup $group
+ *
  */
 class Question extends \yii\db\ActiveRecord
 {

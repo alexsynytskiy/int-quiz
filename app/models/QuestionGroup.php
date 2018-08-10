@@ -8,6 +8,7 @@ namespace app\models;
  * @property integer $id
  * @property string $name
  * @property string $description
+ * @property string $hash
  * @property string $starting_at
  * @property string $ending_at
  *
@@ -15,7 +16,11 @@ namespace app\models;
  */
 class QuestionGroup extends \yii\db\ActiveRecord
 {
-    public $active = false;
+    const DISABLED = 'disabled';
+    const ACTIVE = 'active';
+    const ANSWERED = 'answered';
+
+    public $active = self::DISABLED;
 
     /**
      * @inheritdoc
@@ -32,7 +37,7 @@ class QuestionGroup extends \yii\db\ActiveRecord
     {
         return [
             [['starting_at', 'ending_at', 'name'], 'safe'],
-            [['name', 'description'], 'string'],
+            [['name', 'description', 'hash'], 'string'],
         ];
     }
 

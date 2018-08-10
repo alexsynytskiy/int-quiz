@@ -61,13 +61,8 @@ class SiteController extends Controller
      */
     public function actionIndex()
     {
-        \Yii::$app->seo->setTitle('Головна');
-        \Yii::$app->seo->setDescription('Intellias quiz');
-        \Yii::$app->seo->setKeywords('intellias, quiz');
-
-        return $this->render('index', [
-
-        ]);
+        $this->checkUserStatus();
+        return $this->redirect(['/profile']);
     }
 
     public function testDataUser()
@@ -118,7 +113,11 @@ class SiteController extends Controller
      */
     public function actionProfile()
     {
-        $this->checkUserStatus();
+        $status = $this->checkUserStatus();
+
+        if ($status !== true) {
+            return $status;
+        }
 
         \Yii::$app->seo->setTitle('Profile');
         \Yii::$app->seo->setDescription('Intellias quiz');
@@ -127,10 +126,21 @@ class SiteController extends Controller
         $questionGroups = QuestionGroup::find()->all();
         $currentTime = time();
 
+        $userAnswers = UserAnswer::find()->where(['user_id' => \Yii::$app->siteUser->identity->id])->all();
+
         /** @var QuestionGroup $group */
         foreach ($questionGroups as $group) {
-            if ($currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
-                $group->active = true;
+            $answersCount = 0;
+            /** @var UserAnswer $answer */
+            foreach ($userAnswers as $answer) {
+                if ($answer->question->group_id === $group->id && $answer->answer_id) {
+                    $answersCount++;
+                }
+            }
+
+            if ($answersCount < count($group->questions) &&
+                $currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
+                $group->active = QuestionGroup::ACTIVE;
             }
         }
 
@@ -142,34 +152,42 @@ class SiteController extends Controller
     }
 
     /**
-     * @param $id
+     * @param string $hash
      * @return string|\yii\web\Response
      * @throws Exception
      */
-    public function actionAnswerBlock($id)
+    public function actionAnswer($hash)
     {
-        $this->checkUserStatus();
+        $status = $this->checkUserStatus();
 
-        $group = QuestionGroup::findOne($id);
+        if ($status !== true) {
+            return $status;
+        }
+
+        $group = QuestionGroup::findOne(['hash' => $hash]);
 
         if ($group) {
             $currentTime = time();
 
             if ($currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
-                $group->active = true;
+                $group->active = QuestionGroup::ACTIVE;
             }
 
-            $blockQuestions = Question::find()
+            $blockQuestion = Question::find()
                 ->alias('q')
                 ->innerJoin(UserAnswer::tableName() . ' qa', 'qa.question_id = q.id')
-                ->where(['qa.user_id' => \Yii::$app->siteUser->id, 'q.group_id' => $group->id])
-                ->limit(2)
-                ->all();
+                ->where([
+                    'qa.user_id' => \Yii::$app->siteUser->id,
+                    'qa.answer_id' => null,
+                    'q.group_id' => $group->id,
+                ])
+                ->limit(1)
+                ->one();
         } else {
             throw new Exception('Такого блоку питань не існує');
         }
 
-        return $this->render('profile', ['blockQuestions' => $blockQuestions]);
+        return $this->render('answer', ['blockQuestion' => $blockQuestion]);
     }
 
     /**

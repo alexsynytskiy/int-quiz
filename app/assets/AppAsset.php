@@ -48,6 +48,7 @@ class AppAsset extends \yii\web\AssetBundle
         'js/jquery.bxslider.js',
         'js/SiteCore.js',
         'js/RulesPage.js',
+        'js/AnswerPage.js',
         'js/main.js',
     ];
 

@@ -83,8 +83,14 @@ $config = [
             'class' => 'yii\mutex\FileMutex',
         ],
         'urlManager' => [
+            'class' => 'yii\web\UrlManager',
+            // Hide index.php
+            'showScriptName' => false,
+            // Use pretty URLs
+            'enablePrettyUrl' => true,
             'rules' => [
                 '<alias:\w+>' => 'site/<alias>',
+                'answer/<hash:\w+>' => 'site/answer',
                 '<controller:\w+>/' => '<controller>/index',
                 '<controller:\w+>/<slug:[\w-]+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',

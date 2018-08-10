@@ -56,7 +56,7 @@ $baseUrl = $asset->baseUrl;
 
     <div class="questions">
         <?php foreach ($questionGroups as $group): ?>
-            <div class="block <?= !$group->active ? 'disabled' : '' ?> clearfix">
+            <div class="block <?= $group->active ?> clearfix">
                 <div class="left-part">
                     <div class="title"><?= $group->name ?></div>
                     <div class="sub-title"><?= $group->description ?></div>
@@ -66,13 +66,13 @@ $baseUrl = $asset->baseUrl;
                         <div class="number correct">1</div>
                         <div class="number wrong">2</div>
                     </div>
-                    <?php if($group->active): ?>
-                        <a href="<?= \yii\helpers\Url::to(['/answer-block/' . $group->id]) ?>" class="start enabled">
+                    <?php if($group->active !== \app\models\QuestionGroup::DISABLED): ?>
+                        <a href="<?= \yii\helpers\Url::to(['/answer/' . $group->hash]) ?>" class="start enabled">
                             <div class="text title">Старт</div>
                             <div class="text sub-title"><?= \app\models\Question::TIME_FOR_ANSWER / 60 ?> хв</div>
                         </a>
                     <?php else: ?>
-                        <div class="start disabled">
+                        <div class="start <?= $group->active ?>">
                             <div class="icon"></div>
                         </div>
                     <?php endif; ?>

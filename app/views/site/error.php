@@ -6,14 +6,12 @@ $asset = \app\assets\AppAsset::register($this);
 
 $baseUrl = $asset->baseUrl;
 ?>
-<section  style="padding-top: 100px;"></section>
 
-<section class="page-block padding">
-    <div class="container">
-        <div class="row">
-            <div class="col-md-12">
-                Error
-            </div>
+    <div class="steps-block rules clearfix">
+        <div class="logo"></div>
+        <div class="step-title"><?= 'День народження компанії' ?></div>
+
+        <div class="text-info-block">
+            Упс! Щось пішло не так..
         </div>
     </div>
-</section>

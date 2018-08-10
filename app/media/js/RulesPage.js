@@ -17,8 +17,6 @@ var RulesPage = function (options) {
             data: {_csrf: SiteCore.getCsrfToken()},
             dataType: "json",
             success: function (json) {
-                console.log(document.location.origin + pageOptions.profileUrl);
-
                 $(location).attr('href', document.location.origin + pageOptions.profileUrl);
             }
         });
