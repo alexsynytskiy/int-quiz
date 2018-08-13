@@ -13,6 +13,7 @@ namespace app\models;
  * @property string $ending_at
  *
  * @property Question[] $questions
+ * @property UserAnswer[] $userAnswers
  */
 class QuestionGroup extends \yii\db\ActiveRecord
 {
@@ -59,5 +60,21 @@ class QuestionGroup extends \yii\db\ActiveRecord
     public function getQuestions()
     {
         return $this->hasMany(Question::className(), ['group_id' => 'id']);
+    }
+
+    /**
+     * @return array|null|\yii\db\ActiveRecord
+     */
+    public function getUserAnswers()
+    {
+        return  UserAnswer::find()
+            ->alias('qa')
+            ->innerJoin(Question::tableName() . ' q', 'q.id = qa.question_id')
+            ->innerJoin(self::tableName() . ' g', 'q.group_id = g.id')
+            ->where([
+                'qa.user_id' => \Yii::$app->siteUser->id,
+                'g.id' => $this->id,
+            ])
+            ->all();
     }
 }

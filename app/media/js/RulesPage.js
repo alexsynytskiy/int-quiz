@@ -1,7 +1,6 @@
 var RulesPage = function (options) {
     var pageOptions = $.extend(true, {
-        acceptAgreementUrl: '',
-        profileUrl: ''
+        acceptAgreementUrl: ''
     }, options);
 
     var selectors = {
@@ -11,14 +10,20 @@ var RulesPage = function (options) {
     $('body').on("click", selectors.confirm, function (e) {
         e.preventDefault();
 
-        $.ajax({
-            url: pageOptions.acceptAgreementUrl,
-            type: 'POST',
-            data: {_csrf: SiteCore.getCsrfToken()},
-            dataType: "json",
-            success: function (json) {
-                $(location).attr('href', document.location.origin + pageOptions.profileUrl);
-            }
+        var url = document.location.origin;
+
+        $.when(
+            $.ajax({
+                url: pageOptions.acceptAgreementUrl,
+                type: 'POST',
+                data: {_csrf: SiteCore.getCsrfToken()},
+                dataType: "json",
+                success: function (json) {
+                    url += json.profileUrl;
+                }
+            })
+        ).then(function( data, textStatus, jqXHR ) {
+            $(location).attr('href', url);
         });
     });
 };

@@ -12,6 +12,7 @@ use yii\db\Expression;
  *
  * @property integer $id
  * @property string $text
+ * @property string $correct_answer
  * @property integer $group_id
  * @property integer $reward
  * @property string $created_at
@@ -19,6 +20,7 @@ use yii\db\Expression;
  *
  * @property Answer[] $answers
  * @property QuestionGroup $group
+ * @property int $emptyQuestionsCount
  *
  */
 class Question extends \yii\db\ActiveRecord
@@ -39,7 +41,7 @@ class Question extends \yii\db\ActiveRecord
     public function rules()
     {
         return [
-            [['created_at', 'updated_at', 'text', 'group_id', 'reward'], 'safe'],
+            [['created_at', 'updated_at', 'text', 'group_id', 'reward', 'correct_answer'], 'safe'],
             [['text'], 'string', 'min' => 1, 'max' => 1028],
             [['group_id', 'reward'], 'integer'],
         ];
@@ -87,5 +89,40 @@ class Question extends \yii\db\ActiveRecord
     public function getGroup()
     {
         return $this->hasOne(QuestionGroup::className(), ['id' => 'group_id']);
+    }
+
+    /**
+     * @param int $groupId
+     *
+     * @return array|null|ActiveRecord
+     */
+    public static function findNextQuestion($groupId)
+    {
+        return self::find()
+            ->alias('q')
+            ->innerJoin(UserAnswer::tableName() . ' qa', 'qa.question_id = q.id')
+            ->where([
+                'qa.user_id' => \Yii::$app->siteUser->id,
+                'qa.answer_id' => null,
+                'q.group_id' => $groupId,
+            ])
+            ->limit(1)
+            ->one();
+    }
+
+    /**
+     * @return int|string
+     */
+    public function getEmptyQuestionsCount()
+    {
+        return UserAnswer::find()
+            ->alias('qa')
+            ->innerJoin(Question::tableName() . ' q', 'qa.question_id = q.id')
+            ->where([
+                'qa.user_id' => \Yii::$app->siteUser->id,
+                'qa.answer_id' => null,
+                'q.group_id' => $this->group_id,
+            ])
+            ->count();
     }
 }

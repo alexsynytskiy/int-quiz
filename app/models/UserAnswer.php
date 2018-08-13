@@ -18,6 +18,7 @@ use yii\db\Expression;
  * @property string $answered_at
  *
  * @property Question $question
+ * @property Answer $answer
  *
  */
 class UserAnswer extends \yii\db\ActiveRecord
@@ -83,7 +84,7 @@ class UserAnswer extends \yii\db\ActiveRecord
     /**
      * @return \yii\db\ActiveQuery
      */
-    public function getAnswers()
+    public function getAnswer()
     {
         return $this->hasOne(Answer::className(), ['id' => 'answer_id']);
     }

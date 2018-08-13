@@ -91,6 +91,7 @@ $config = [
             'rules' => [
                 '<alias:\w+>' => 'site/<alias>',
                 'answer/<hash:\w+>' => 'site/answer',
+                'block-finished/<hash:\w+>' => 'site/block-finished',
                 '<controller:\w+>/' => '<controller>/index',
                 '<controller:\w+>/<slug:[\w-]+>' => '<controller>/view',
                 '<controller:\w+>/<action:\w+>/' => '<controller>/<action>',

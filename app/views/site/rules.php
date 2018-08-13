@@ -60,7 +60,6 @@ $baseUrl = $asset->baseUrl;
 <?php
 $pageOptions = \yii\helpers\Json::encode([
     'acceptAgreementUrl' => '/quiz/agreement/',
-    'profileUrl' => '/profile',
 ]);
 
 $this->registerJs('RulesPage(' . $pageOptions . ')');

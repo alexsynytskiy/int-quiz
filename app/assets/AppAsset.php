@@ -49,6 +49,7 @@ class AppAsset extends \yii\web\AssetBundle
         'js/SiteCore.js',
         'js/RulesPage.js',
         'js/AnswerPage.js',
+        'js/ProfilePage.js',
         'js/main.js',
     ];
 

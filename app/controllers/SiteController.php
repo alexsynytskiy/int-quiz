@@ -142,6 +142,9 @@ class SiteController extends Controller
                 $currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
                 $group->active = QuestionGroup::ACTIVE;
             }
+            elseif ($answersCount === count($group->questions)) {
+                $group->active = QuestionGroup::ANSWERED;
+            }
         }
 
         $params = ArrayHelper::merge($this->testDataUser(), [
@@ -173,21 +176,60 @@ class SiteController extends Controller
                 $group->active = QuestionGroup::ACTIVE;
             }
 
-            $blockQuestion = Question::find()
-                ->alias('q')
-                ->innerJoin(UserAnswer::tableName() . ' qa', 'qa.question_id = q.id')
-                ->where([
-                    'qa.user_id' => \Yii::$app->siteUser->id,
-                    'qa.answer_id' => null,
-                    'q.group_id' => $group->id,
-                ])
-                ->limit(1)
-                ->one();
+            $blockQuestion = Question::findNextQuestion($group->id);
         } else {
             throw new Exception('Такого блоку питань не існує');
         }
 
+        if(!$blockQuestion) {
+            return $this->redirect('/profile');
+        }
+
         return $this->render('answer', ['blockQuestion' => $blockQuestion]);
+    }
+
+    /**
+     * @param string $hash
+     * @return bool|string|\yii\web\Response
+     */
+    public function actionBlockFinished($hash)
+    {
+        $status = $this->checkUserStatus();
+
+        if ($status !== true) {
+            return $status;
+        }
+
+        $params = $this->testDataUser();
+
+        $group = QuestionGroup::findOne(['hash' => $hash]);
+
+        if ($group) {
+            $userAnswers = $group->userAnswers;
+            $answersCount = 0;
+            $wrongAnswers = [];
+
+            foreach ($userAnswers as $answer) {
+                if ($answer->question->group_id === $group->id && $answer->answer_id) {
+                    $answersCount++;
+                }
+            }
+
+            if ($answersCount === count($group->questions)) {
+                foreach ($userAnswers as $userAnswer) {
+                    if(!$userAnswer->answer->is_correct) {
+                        $wrongAnswers[] = $userAnswer->question->correct_answer;
+                    }
+                }
+
+                $params = ArrayHelper::merge($params, ['wrongAnswers' => $wrongAnswers, 'group' => $group]);
+            }
+            else {
+                return $this->redirect('/profile');
+            }
+        }
+
+        return $this->render('block-finished', $params);
     }
 
     /**

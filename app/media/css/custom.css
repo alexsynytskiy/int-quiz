@@ -54,8 +54,8 @@ body {
     width: 100%;
     padding: 0;
     margin: 0;
-    background: url(/app/media/img/2.png) no-repeat center;
-    background-size: cover;
+    /* background: url(/app/media/img/2.png) no-repeat center;
+    background-size: cover;*/
 }
 
 #gradient {
@@ -280,8 +280,15 @@ form .already a {
     margin-bottom: 0;
 }
 
-.steps-block.profile .questions .block.disabled {
+.steps-block.profile .questions .block.disabled,
+.steps-block.profile .questions .block.answered {
     border: 2px solid #CBD5DC;
+}
+
+.steps-block.profile .questions .block.answered .right-part .number {
+    border: 2px solid #CBD5DC;
+    border-top: none;
+    position: relative;
 }
 
 .steps-block.profile .questions .block .left-part {
@@ -343,6 +350,28 @@ form .already a {
     border-bottom: none;
 }
 
+.steps-block.profile .questions .block .right-part .number .state {
+    height: 38px;
+    width: 38px;
+    position: absolute;
+    top: 0;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    margin: auto;
+    line-height: 38px;
+    color: #fff;
+    border-radius: 19px;
+}
+
+.steps-block.profile .questions .block .right-part .number .state.correct {
+    background-color: #69d6ad;
+}
+
+.steps-block.profile .questions .block .right-part .number .state.wrong {
+    background-color: #9F6CC7;
+}
+
 .steps-block.profile .questions .block .right-part .start {
     width: 115px;
     color: #fff;
@@ -352,6 +381,26 @@ form .already a {
 
 .steps-block.profile .questions .block .right-part .start.enabled {
     background-color: #45D6AD;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.steps-block.profile .questions .block .right-part .start.enabled:hover {
+    cursor: pointer;
+    background-color: #fff;
+    color: #45D6AD;
+    border-top-right-radius: 10px;
+    border-bottom-right-radius: 10px;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
 }
 
 .steps-block.profile .questions .block .right-part .start .text {
@@ -376,7 +425,13 @@ form .already a {
     background-color: #CBD5DC;
 }
 
-.steps-block.profile .questions .block .right-part .start.disabled .icon {
+.steps-block.profile .questions .block .right-part .start.answered {
+    position: relative;
+    background-color: #45D6AD;
+}
+
+.steps-block.profile .questions .block .right-part .start.disabled .icon,
+.steps-block.profile .questions .block .right-part .start.answered .icon {
     height: 40px;
     width: 40px;
     position: absolute;
@@ -451,6 +506,62 @@ form .already a {
 
 .answer-block #submit-answer {
     margin-top: 20px;
+}
+
+.image-group img {
+    width: 600px;
+    margin-bottom: 30px;
+}
+
+.congrads {
+    font-family: 'Play', sans-serif;
+    font-size: 24px;
+    font-weight: bold;
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+.new-info {
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: normal;
+    text-align: center;
+    margin-bottom: 30px;
+    line-height: 32px;
+}
+
+.pointer-question {
+    height: 18px;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 4px;
+}
+
+.pointer-question .pointer-question-wrapper {
+    display: inline-block;
+}
+
+.steps-block.profile .pointer-question .pointer-question-wrapper .item {
+    float: left;
+    height: 18px;
+    width: 18px;
+    border-radius: 9px;
+    margin: 0 8px;
+}
+
+.steps-block.profile .pointer-question .pointer-question-wrapper .item.answered-point {
+    background-color: #45D6AD;
+}
+
+.steps-block.profile .pointer-question .pointer-question-wrapper .item.unanswered-point {
+    background-color: #fff;
+    border: 2px solid #45D6AD;
+}
+
+#space {
+    position: absolute;
+    top: 0;
+    left: 0;
 }
 
 @media (max-width: 1199px) {

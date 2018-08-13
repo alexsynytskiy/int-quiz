@@ -1,5 +1,7 @@
 <?php
 
+use \app\models\QuestionGroup;
+
 /* @var $this yii\web\View */
 /* @var $name string */
 /* @var $points string */
@@ -62,15 +64,31 @@ $baseUrl = $asset->baseUrl;
                     <div class="sub-title"><?= $group->description ?></div>
                 </div>
                 <div class="right-part">
-                    <div class="numbers">
-                        <div class="number correct">1</div>
-                        <div class="number wrong">2</div>
+                    <div class="numbers <?= $group->active ?>">
+                        <?php $i = 0; ?>
+                        <?php foreach ($group->userAnswers as $userAnswer): ?>
+                            <?php if(in_array($group->active,
+                                [QuestionGroup::ACTIVE, QuestionGroup::DISABLED], false)): ?>
+                                <div class="number"><?= ++$i ?></div>
+                            <?php else: ?>
+                                <div class="number">
+                                    <div class="state <?= $userAnswer->answer && $userAnswer->answer->is_correct ?
+                                        'correct' : 'wrong' ?>">
+                                        <?= ++$i ?>
+                                    </div>
+                                </div>
+                            <?php endif; ?>
+                        <?php endforeach; ?>
                     </div>
-                    <?php if($group->active !== \app\models\QuestionGroup::DISABLED): ?>
-                        <a href="<?= \yii\helpers\Url::to(['/answer/' . $group->hash]) ?>" class="start enabled">
+                    <?php if($group->active === QuestionGroup::ACTIVE): ?>
+                        <div data-hash="<?= $group->hash ?>" id="block-start" class="start enabled">
                             <div class="text title">Старт</div>
                             <div class="text sub-title"><?= \app\models\Question::TIME_FOR_ANSWER / 60 ?> хв</div>
-                        </a>
+                        </div>
+                    <?php elseif($group->active === QuestionGroup::ANSWERED): ?>
+                        <div class="start <?= $group->active ?>">
+                            <div class="icon"></div>
+                        </div>
                     <?php else: ?>
                         <div class="start <?= $group->active ?>">
                             <div class="icon"></div>
@@ -81,3 +99,13 @@ $baseUrl = $asset->baseUrl;
         <?php endforeach; ?>
     </div>
 </div>
+
+
+<?php
+$pageOptions = \yii\helpers\Json::encode([
+    'startBlockUrl' => '/quiz/start-block/',
+]);
+
+$this->registerJs('ProfilePage(' . $pageOptions . ')');
+?>
+
