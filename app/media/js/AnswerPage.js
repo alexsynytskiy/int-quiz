@@ -1,7 +1,8 @@
 var AnswerPage = function (options) {
     var pageOptions = $.extend(true, {
         questionId: '',
-        checkAnswerUrl: ''
+        checkAnswerUrl: '',
+        expiringAt: ''
     }, options);
 
     var selectors = {
@@ -47,12 +48,10 @@ var AnswerPage = function (options) {
 
         var $answer = $(selectors.answer + '.selected');
 
-        console.log($answer.size());
-
-        if ($answer.size() > 1) {
+        if ($answer.size() !== 1) {
             new PNotify({
                 title: 'Помилка!',
-                text: 'Можна обрати лише 1 варіант відповіді',
+                text: 'Можна та необхідно обрати лише 1 варіант відповіді',
                 icon: '',
                 type: 'error',
                 delay: 6000 //Show the notification 4sec
@@ -99,4 +98,24 @@ var AnswerPage = function (options) {
             });
         }
     });
+
+    var countDownDate = new Date(pageOptions.expiringAt).getTime();
+
+    var x = setInterval(function() {
+        var now = Math.floor(new Date().getTime() / 1000);
+        var distance = countDownDate - now;
+
+        console.log(distance);
+
+        var minutes = Math.floor((distance % (60 * 60)) / 60);
+        var seconds = Math.floor(distance % (60));
+
+        document.getElementById("time-value").innerHTML = (minutes < 10 ? '0' + minutes : minutes) + ":"
+            + (seconds < 10 ? '0' + seconds : seconds);
+
+        if (distance < 0) {
+            clearInterval(x);
+            document.getElementById("time-value").innerHTML = "Час вийшов!";
+        }
+    }, 1000);
 };

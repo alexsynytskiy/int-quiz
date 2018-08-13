@@ -49,8 +49,19 @@ class RegisterForm extends Model
             [['name', 'surname', 'nickname', 'passwordRepeat', 'userPassword', 'captchaUser'], 'required'],
             ['captchaUser', 'captcha', 'captchaAction' => '/site/captcha'],
             ['userPassword', 'string', 'min' => 6],
+            [['name', 'surname'], 'uniqueSiteUser'],
             ['passwordRepeat', 'compare', 'compareAttribute' => 'userPassword'],
         ];
+    }
+
+    public function uniqueSiteUser($attribute, $params, $validator)
+    {
+        $userExists = SiteUser::findOne(['name' => $this->name, 'surname' => $this->surname]);
+        if($userExists)
+        {
+            $this->addError($attribute, "Такий користувач вже існує ({$this->name} {$this->surname})");
+        }
+
     }
 
     /**

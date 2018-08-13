@@ -9,6 +9,13 @@ $countAnswered = 2 - $blockQuestion->emptyQuestionsCount;
     <?= $blockQuestion->text ?>
 </div>
 
+<div class="timer">
+    <div class="timer-wrapper clearfix">
+        <div class="timer-icon"></div>
+        <div id="time-value"></div>
+    </div>
+</div>
+
 <div class="answers clearfix">
     <?php foreach ($blockQuestion->answers as $answer): ?>
         <div class="answer" data-id="<?= $answer->id ?>">

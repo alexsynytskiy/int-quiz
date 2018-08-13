@@ -8,38 +8,16 @@
 $asset = \app\assets\AppAsset::register($this);
 
 $baseUrl = $asset->baseUrl;
+
+$userAnswer = \app\models\UserAnswer::findOne([
+    'question_id' => $blockQuestion->id,
+    'user_id' => \Yii::$app->siteUser->identity->id,
+    'answer_id' => null,
+]);
 ?>
 
 <div class="steps-block profile answer-block clearfix">
-    <div class="profile-header clearfix">
-        <div class="logo"></div>
-        <div class="profile-navigation">
-            <a href="<?= \yii\helpers\Url::to(['/site/logout']) ?>" class="link-additional">
-                <div class="link-icon">
-                    <div class="exit"></div>
-                </div>
-                Вихід
-            </a>
-            <a href="#" class="link-additional">
-                <div class="link-icon">
-                    <div class="rules"></div>
-                </div>
-                Правила
-            </a>
-            <a href="#" class="link-additional">
-                <div class="link-icon">
-                    <div class="about"></div>
-                </div>
-                Про подію
-            </a>
-            <a href="#" class="link-additional">
-                <div class="link-icon">
-                    <div class="help"></div>
-                </div>
-                Help
-            </a>
-        </div>
-    </div>
+    <?= $this->render('/_blocks/profile-header') ?>
 
     <div class="separator-space"></div>
 
@@ -52,6 +30,7 @@ $baseUrl = $asset->baseUrl;
 $pageOptions = \yii\helpers\Json::encode([
     'questionId' => $blockQuestion->id,
     'checkAnswerUrl' => '/quiz/answer-check/',
+    'expiringAt' => strtotime($userAnswer->started_at) + \app\models\Question::TIME_FOR_ANSWER,
 ]);
 
 $this->registerJs('AnswerPage(' . $pageOptions . ')');

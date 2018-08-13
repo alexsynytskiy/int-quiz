@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\BaseDefinition;
 use app\components\helpers\QuestionsSetter;
+use app\components\helpers\StartBlock;
 use app\models\forms\LoginForm;
 use app\models\forms\RegisterForm;
 use app\models\Question;
@@ -109,6 +110,42 @@ class SiteController extends Controller
     }
 
     /**
+     * @return bool|string|\yii\web\Response
+     */
+    public function actionEventInfo()
+    {
+        $status = $this->checkUserStatus();
+
+        if ($status !== true) {
+            return $status;
+        }
+
+        \Yii::$app->seo->setTitle('Event info');
+        \Yii::$app->seo->setDescription('Intellias quiz');
+        \Yii::$app->seo->setKeywords('intellias, quiz');
+
+        return $this->render('simple-info');
+    }
+
+    /**
+     * @return bool|string|\yii\web\Response
+     */
+    public function actionGameRules()
+    {
+        $status = $this->checkUserStatus();
+
+        if ($status !== true) {
+            return $status;
+        }
+
+        \Yii::$app->seo->setTitle('Game rules');
+        \Yii::$app->seo->setDescription('Intellias quiz');
+        \Yii::$app->seo->setKeywords('intellias, quiz');
+
+        return $this->render('simple-rules');
+    }
+
+    /**
      * @return string
      */
     public function actionProfile()
@@ -141,8 +178,7 @@ class SiteController extends Controller
             if ($answersCount < count($group->questions) &&
                 $currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
                 $group->active = QuestionGroup::ACTIVE;
-            }
-            elseif ($answersCount === count($group->questions)) {
+            } elseif ($answersCount === count($group->questions)) {
                 $group->active = QuestionGroup::ANSWERED;
             }
         }
@@ -156,8 +192,11 @@ class SiteController extends Controller
 
     /**
      * @param string $hash
-     * @return string|\yii\web\Response
-     * @throws Exception
+     *
+     * @return bool|string|\yii\web\Response
+     *
+     * @throws \Exception
+     * @throws \Throwable
      */
     public function actionAnswer($hash)
     {
@@ -170,6 +209,22 @@ class SiteController extends Controller
         $group = QuestionGroup::findOne(['hash' => $hash]);
 
         if ($group) {
+            /** @var UserAnswer[] $userAnswers */
+            $userAnswers = UserAnswer::find()
+                ->alias('qa')
+                ->innerJoin(Question::tableName() . ' q', 'qa.question_id = q.id')
+                ->where([
+                    'qa.user_id' => \Yii::$app->siteUser->id,
+                    'qa.answer_id' => null,
+                    'qa.started_at' => null,
+                    'q.group_id' => $group->id,
+                ])
+                ->all();
+
+            if ($userAnswers) {
+                StartBlock::startBlockLogic($hash);
+            }
+
             $currentTime = time();
 
             if ($currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
@@ -181,7 +236,7 @@ class SiteController extends Controller
             throw new Exception('Такого блоку питань не існує');
         }
 
-        if(!$blockQuestion) {
+        if (!$blockQuestion) {
             return $this->redirect('/profile');
         }
 
@@ -217,14 +272,13 @@ class SiteController extends Controller
 
             if ($answersCount === count($group->questions)) {
                 foreach ($userAnswers as $userAnswer) {
-                    if(!$userAnswer->answer->is_correct) {
+                    if (!$userAnswer->answer->is_correct) {
                         $wrongAnswers[] = $userAnswer->question->correct_answer;
                     }
                 }
 
                 $params = ArrayHelper::merge($params, ['wrongAnswers' => $wrongAnswers, 'group' => $group]);
-            }
-            else {
+            } else {
                 return $this->redirect('/profile');
             }
         }

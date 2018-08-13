@@ -139,7 +139,7 @@ form .already a {
 }
 
 .steps-block .logo {
-    background: url(/app/media/img/logo.png) no-repeat;
+    background: url(/app/media/img/logo.svg) no-repeat;
     background-size: 300px 100px;
     height: 100px;
     width: 300px;
@@ -228,9 +228,40 @@ form .already a {
 .steps-block.profile .link-additional .link-icon > div {
     height: 24px;
     width: 24px;
-    border: 3px solid #45D6AD;
-    border-radius: 5px;
-    margin-right: 5px;
+    margin-right: 7px;
+}
+
+.steps-block.profile .link-additional .link-icon .exit {
+    background: url(/app/media/img/icon4.svg) no-repeat;
+    background-size: 24px 24px;
+}
+
+.steps-block.profile .link-additional .link-icon .rules {
+    background: url(/app/media/img/icon5.svg) no-repeat;
+    background-size: 24px 24px;
+}
+
+.steps-block.profile .link-additional .link-icon .about {
+    background: url(/app/media/img/icon1.svg) no-repeat;
+    background-size: 24px 24px;
+}
+
+.steps-block.profile .link-additional .link-icon .help {
+    background: url(/app/media/img/icon2.svg) no-repeat;
+    background-size: 24px 24px;
+}
+
+.timer .timer-icon {
+    height: 24px;
+    width: 24px;
+    margin-right: 7px;
+    float: left;
+    background: url(/app/media/img/icon3.svg) no-repeat;
+    background-size: 24px 24px;
+}
+
+.timer #time-value {
+    float: left;
 }
 
 .steps-block.profile .separator-space {
@@ -259,10 +290,10 @@ form .already a {
 }
 
 .steps-block.profile .smarts .icon {
-    border: 3px solid #263745;
+    background: url(/app/media/img/rocket.svg) no-repeat;
+    background-size: 24px 24px;
     height: 24px;
     width: 24px;
-    border-radius: 5px;
     margin-right: 7px;
     float: left;
     margin-left: 20px;
@@ -377,6 +408,8 @@ form .already a {
     color: #fff;
     height: 100%;
     float: left;
+    border-top-right-radius: 8px;
+    border-bottom-right-radius: 8px;
 }
 
 .steps-block.profile .questions .block .right-part .start.enabled {
@@ -440,7 +473,16 @@ form .already a {
     left: 0;
     right: 0;
     margin: auto;
-    border: 1px solid #fff;
+}
+
+.steps-block.profile .questions .block .right-part .start.disabled .icon {
+    background: url(/app/media/img/icon6.svg) no-repeat;
+    background-size: 40px 40px;
+}
+
+.steps-block.profile .questions .block .right-part .start.answered .icon {
+    background: url(/app/media/img/icon7.svg) no-repeat;
+    background-size: 40px 40px;
 }
 
 .steps-block.profile .question {
@@ -530,6 +572,26 @@ form .already a {
     line-height: 32px;
 }
 
+.timer {
+    height: 18px;
+    text-align: center;
+    margin-top: 8px;
+    margin-bottom: 29px;
+    font-family: 'Open Sans', sans-serif;
+    font-size: 16px;
+    font-weight: bold;
+}
+
+.timer .timer-wrapper {
+    display: inline-block;
+}
+
+.timer .timer-wrapper .time-value {
+    float: left;
+    height: 18px;
+    width: 18px;
+}
+
 .pointer-question {
     height: 18px;
     text-align: center;
@@ -550,18 +612,23 @@ form .already a {
 }
 
 .steps-block.profile .pointer-question .pointer-question-wrapper .item.answered-point {
-    background-color: #45D6AD;
+    background: url(/app/media/img/icon8.svg) no-repeat;
+    background-size: 18px 18px;
 }
 
 .steps-block.profile .pointer-question .pointer-question-wrapper .item.unanswered-point {
-    background-color: #fff;
-    border: 2px solid #45D6AD;
+    background: url(/app/media/img/icon9.svg) no-repeat;
+    background-size: 18px 18px;
 }
 
 #space {
     position: absolute;
     top: 0;
     left: 0;
+}
+
+.brighttheme-icon-sticker {
+    display: none;
 }
 
 @media (max-width: 1199px) {
