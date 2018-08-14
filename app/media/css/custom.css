@@ -312,7 +312,8 @@ form .already a {
 }
 
 .steps-block.profile .questions .block.disabled,
-.steps-block.profile .questions .block.answered {
+.steps-block.profile .questions .block.answered,
+.steps-block.profile .questions .block.missed {
     border: 2px solid #CBD5DC;
 }
 
@@ -372,9 +373,14 @@ form .already a {
     border-top: none;
 }
 
-.steps-block.profile .questions .block.disabled .right-part .number {
+.steps-block.profile .questions .block.disabled .right-part .number,
+.steps-block.profile .questions .block.missed .right-part .number {
     border: 2px solid #CBD5DC;
     border-top: none;
+}
+
+.steps-block.profile .questions .block.missed .right-part .number {
+    position: relative;
 }
 
 .steps-block.profile .questions .block .right-part .number:last-child {
@@ -453,7 +459,8 @@ form .already a {
     font-size: 15px;
 }
 
-.steps-block.profile .questions .block .right-part .start.disabled {
+.steps-block.profile .questions .block .right-part .start.disabled,
+.steps-block.profile .questions .block .right-part .start.missed {
     position: relative;
     background-color: #CBD5DC;
 }
@@ -464,7 +471,8 @@ form .already a {
 }
 
 .steps-block.profile .questions .block .right-part .start.disabled .icon,
-.steps-block.profile .questions .block .right-part .start.answered .icon {
+.steps-block.profile .questions .block .right-part .start.answered .icon,
+.steps-block.profile .questions .block .right-part .start.missed .icon {
     height: 40px;
     width: 40px;
     position: absolute;
@@ -475,7 +483,8 @@ form .already a {
     margin: auto;
 }
 
-.steps-block.profile .questions .block .right-part .start.disabled .icon {
+.steps-block.profile .questions .block .right-part .start.disabled .icon,
+.steps-block.profile .questions .block .right-part .start.missed .icon {
     background: url(/app/media/img/icon6.svg) no-repeat;
     background-size: 40px 40px;
 }
@@ -531,6 +540,18 @@ form .already a {
     background-color: #45D6AD;
     color: #fff;
     border: 2px solid #45D6AD;
+}
+
+.steps-block.profile .answer.wrong {
+    background-color: #9F6CC7;
+    color: #fff;
+    border: 2px solid #9F6CC7;
+}
+
+.steps-block.profile .answer.correct {
+    background-color: #3EC09B;
+    color: #fff;
+    border: 2px solid #3EC09B;
 }
 
 .steps-block.profile .answers .answer:nth-child(2n + 1) {

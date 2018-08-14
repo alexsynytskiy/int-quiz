@@ -1,14 +1,10 @@
 <?php
-/** @var $model yii\easyii\modules\news\models\News */
+/** @var $model \yii\easyii\modules\news\models\QuestionSaver */
 
 use yii\easyii\helpers\Image;
-use yii\easyii\widgets\DateTimePicker;
-use yii\easyii\widgets\Redactor;
-use yii\easyii\widgets\SeoForm;
 use yii\helpers\Html;
 use yii\helpers\Url;
 use yii\widgets\ActiveForm;
-use \yii\easyii\components\helpers\CategoryHelper;
 
 $module = $this->context->module->id;
 
@@ -20,10 +16,13 @@ $asset = \yii\easyii\modules\news\assets\NewsAsset::register($this);
     'options' => ['enctype' => 'multipart/form-data', 'class' => 'model-form']
 ]); ?>
 
-    <div class="col-md-12">
+Вопрос
+    <div class="col-md-12 clearfix">
+        <?= $form->field($model, 'text')->textarea() ?>
+
         <div class="col-md-6">
-            <?= $form->field($model, 'category')->widget(\kartik\select2\Select2::className(), [
-                'data' => CategoryHelper::getCategories(),
+            <?= $form->field($model, 'group_id')->widget(\kartik\select2\Select2::className(), [
+                'data' => \app\models\QuestionGroup::getGroups(),
                 'language' => Yii::$app->language,
                 'options' => ['placeholder' => Yii::t('easyii', 'No')],
                 'pluginOptions' => [
@@ -31,66 +30,53 @@ $asset = \yii\easyii\modules\news\assets\NewsAsset::register($this);
                 ],
             ]); ?>
         </div>
-        <div class="col-md-6" id="to-main-page">
-            <?= $form->field($model, 'on_main')->checkbox() ?>
+        <div class="col-md-6">
+            <?= $form->field($model, 'image')->widget(\kartik\file\FileInput::className(), [
+                'options' => [
+                    'accept' => 'image/*'
+                ],
+                'pluginOptions' => [
+                    'showRemove' => false,
+                    'initialPreview' => [
+                        isset($model->image) ? Image::thumb($model->image, 240) : null
+                    ],
+                    'initialPreviewAsData' => true,
+                    'initialPreviewConfig' => [
+                        [
+                            'url' => Url::to(['/admin/' . $module . '/a/clear-image', 'id' => $model->primaryKey]),
+                        ],
+                    ],
+                ]
+            ]); ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'reward')->input('text') ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'correct_answer')->input('text') ?>
         </div>
     </div>
-
-    <div class="col-md-12" id="title">
-        <?= $form->field($model, 'title') ?>
+    <div></div>
+Ответы
+    <div class="col-md-12 clearfix">
+        <div class="col-md-6">
+            <?= $form->field($model, 'answerOneText')->input('text') ?>
+            <?= $form->field($model, 'answerOneCorrect')->checkbox() ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'answerTwoText')->input('text') ?>
+            <?= $form->field($model, 'answerTwoCorrect')->checkbox() ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'answerThreeText')->input('text') ?>
+            <?= $form->field($model, 'answerThreeCorrect')->checkbox() ?>
+        </div>
+        <div class="col-md-6">
+            <?= $form->field($model, 'answerFourText')->input('text') ?>
+            <?= $form->field($model, 'answerFourCorrect')->checkbox() ?>
+        </div>
     </div>
-
-    <div class="col-md-12" id="short">
-        <?= $form->field($model, 'short')->textarea() ?>
-    </div>
-
-<?= $form->field($model, 'text')->widget(Redactor::className(), [
-    'options' => [
-        'minHeight' => 400,
-        'imageUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'news']),
-        'fileUpload' => Url::to(['/admin/redactor/upload', 'dir' => 'news']),
-        'plugins' => ['fullscreen']
-    ]
-]) ?>
-
-<?php if (!$model->isNewRecord && $model->category === \yii\easyii\components\helpers\CategoryHelper::CATEGORY_PORTFOLIO) : ?>
-    <?php if ($this->context->module->settings['enableThumb']) : ?>
-        <?= $form->field($model, 'image')->widget(\kartik\file\FileInput::className(), [
-            'options' => [
-                'accept' => 'image/*'
-            ],
-            'pluginOptions' => [
-                'showRemove' => false,
-                'initialPreview' => [
-                    isset($model->image) ? Image::thumb($model->image, 240) : null
-                ],
-                'initialPreviewAsData' => true,
-                'initialPreviewConfig' => [
-                    [
-                        'url' => Url::to(['/admin/' . $module . '/a/clear-image', 'id' => $model->primaryKey]),
-                    ],
-                ],
-            ]
-        ]); ?>
-    <?php endif; ?>
-<?php endif; ?>
-
-    <?= $form->field($model, 'time')->widget(DateTimePicker::className()); ?>
-
-<?php if (IS_ROOT) : ?>
-    <?= $form->field($model, 'slug') ?>
-    <?= SeoForm::widget(['model' => $model]) ?>
-<?php endif; ?>
+    <div></div>
 
 <?= Html::submitButton(Yii::t('easyii', 'Save'), ['class' => 'btn btn-primary']) ?>
 <?php ActiveForm::end(); ?>
-
-<?php
-$pageOptions = \yii\helpers\Json::encode([
-    'types' => [
-        CategoryHelper::getCategoriesValues(),
-    ],
-]);
-
-$this->registerJs("PublicationPage({$pageOptions});");
-?>

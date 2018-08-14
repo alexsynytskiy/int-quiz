@@ -19,7 +19,7 @@ class QuestionsSetter
     {
         $userId = \Yii::$app->siteUser->identity->id;
 
-        $questionGroups = QuestionGroup::find()->all();
+        $questionGroups = QuestionGroup::find()->orderBy('id')->all();
 
         /** @var QuestionGroup $group */
         foreach ($questionGroups as $group) {
@@ -28,7 +28,7 @@ class QuestionsSetter
             $questionNumber1 = 0;
             $questionNumber2 = 1;
 
-            if (count($groupQuestions) > 2) {
+            if (count($groupQuestions) > QuestionGroup::USER_BLOCK_QUESTIONS) {
                 $questionNumber1 = mt_rand(0, count($groupQuestions) - 1);
                 do {
                     $questionNumber2 = mt_rand(0, count($groupQuestions) - 1);
@@ -43,7 +43,7 @@ class QuestionsSetter
                 $answer->question_id = $groupQuestions[$position]->id;
 
                 if (!$answer->save()) {
-                    throw new Exception('Questions not setted');
+                    throw new Exception('User questions answers not created');
                 }
             }
         }

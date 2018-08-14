@@ -39,9 +39,15 @@ $baseUrl = $asset->baseUrl;
                     <div class="numbers <?= $group->active ?>">
                         <?php $i = 0; ?>
                         <?php foreach ($group->userAnswers as $userAnswer): ?>
-                            <?php if(in_array($group->active,
-                                [QuestionGroup::ACTIVE, QuestionGroup::DISABLED], false)): ?>
+                            <?php if(in_array($group->active, [QuestionGroup::ACTIVE, QuestionGroup::DISABLED],
+                                false)): ?>
                                 <div class="number"><?= ++$i ?></div>
+                            <?php elseif($group->active === QuestionGroup::MISSED): ?>
+                                <div class="number">
+                                    <div class="state wrong">
+                                        <?= ++$i ?>
+                                    </div>
+                                </div>
                             <?php else: ?>
                                 <div class="number">
                                     <div class="state <?= $userAnswer->answer && $userAnswer->answer->is_correct ?

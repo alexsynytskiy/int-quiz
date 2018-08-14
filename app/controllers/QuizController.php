@@ -4,6 +4,7 @@ namespace app\controllers;
 
 use app\components\helpers\QuestionsSetter;
 use app\components\helpers\StartBlock;
+use app\models\Answer;
 use app\models\Question;
 use app\models\QuestionGroup;
 use app\models\SiteUser;
@@ -161,7 +162,13 @@ class QuizController extends Controller
                 }
 
                 if ($userAnswer->update()) {
+                    $isAnswerCorrect = false;
+                    $answerCorrectId = -1;
+
                     if (!$timeEnded && $userAnswer->answer->is_correct) {
+                        $isAnswerCorrect = true;
+                        $answerCorrectId = $answerId;
+
                         $user = SiteUser::findOne(\Yii::$app->siteUser->identity->id);
 
                         if ($user) {
@@ -175,6 +182,17 @@ class QuizController extends Controller
                         }
                     }
 
+                    if(!$isAnswerCorrect) {
+                        $userAnswerCorrect = Answer::find()
+                            ->where([
+                                'question_id' => $questionId,
+                                'is_correct' => 1,
+                            ])
+                            ->one();
+
+                        $answerCorrectId = $userAnswerCorrect->id;
+                    }
+
                     /** @var Question $blockQuestion */
                     $blockQuestion = Question::findNextQuestion($groupId);
 
@@ -183,6 +201,8 @@ class QuizController extends Controller
                             return [
                                 'status' => 'success',
                                 'message' => 'Відповідь зараховано! Наступне питання вже перед тобою',
+                                'isCorrect' => $isAnswerCorrect,
+                                'answerCorrectId' => $answerCorrectId,
                                 'newQuestion' => $this->renderAjax('/_blocks/question-body',
                                     ['blockQuestion' => $blockQuestion]),
                             ];
@@ -211,6 +231,8 @@ class QuizController extends Controller
 
                     return [
                         'status' => 'success',
+                        'isCorrect' => $isAnswerCorrect,
+                        'answerCorrectId' => $answerCorrectId,
                         'message' => 'Молодець! Відповіді зараховано вчасно',
                         'blockFinishedUrl' => '/block-finished/' . QuestionGroup::findOne($groupId)->hash,
                     ];

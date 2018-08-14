@@ -44,7 +44,8 @@ var AnswerPage = function (options) {
         e.preventDefault();
 
         var url = document.location.origin,
-            newQuestion = false;
+            newQuestion = false,
+            newQuestionHtml = '';
 
         var $answer = $(selectors.answer + '.selected');
 
@@ -58,6 +59,8 @@ var AnswerPage = function (options) {
             });
         }
         else {
+            var answerId = $answer.data('id');
+
             $.when(
                 $.ajax({
                     url: pageOptions.checkAnswerUrl,
@@ -66,7 +69,7 @@ var AnswerPage = function (options) {
                         _csrf: SiteCore.getCsrfToken(),
                         questionId: $(selectors.question).data('id'),
                         groupId: $(selectors.question).data('group-id'),
-                        answerId: $answer.data('id')
+                        answerId: answerId
                     },
                     dataType: "json",
                     success: function (json) {
@@ -76,7 +79,7 @@ var AnswerPage = function (options) {
                                 text: json.message,
                                 icon: '',
                                 type: json.status,
-                                delay: 6000 //Show the notification 4sec
+                                delay: 3000 //Show the notification 4sec
                             });
                         }
 
@@ -86,14 +89,43 @@ var AnswerPage = function (options) {
 
                         if (typeof json.newQuestion !== 'undefined') {
                             newQuestion = true;
+                            newQuestionHtml = json.newQuestion;
+                        }
 
-                            $(selectors.questionWrapper).html(json.newQuestion).delay(1000);
+                        if (typeof json.isCorrect !== 'undefined' && typeof json.answerCorrectId !== 'undefined') {
+                            var $answers = $(selectors.answer);
+
+                            if (json.isCorrect === true) {
+                                ($answers) && $.each($answers, function (index, value) {
+                                    if ($(value).data('id') === answerId) {
+                                        visualizeCorrectAnswer(value);
+                                    }
+                                });
+                            }
+                            else {
+                                var correctAnswerId = json.answerCorrectId;
+                                if (correctAnswerId !== -1) {
+                                    ($answers) && $.each($answers, function (index, value) {
+                                        if ($(value).data('id') === answerId) {
+                                            $(value).addClass('wrong');
+                                        }
+                                        else if ($(value).data('id') === correctAnswerId) {
+                                            visualizeCorrectAnswer(value);
+                                        }
+                                    });
+                                }
+                            }
                         }
                     }
                 })
             ).then(function (data, textStatus, jqXHR) {
                 if (!newQuestion) {
-                    $(location).attr('href', url).delay(1000);
+                    $(location).attr('href', url).delay(2000);
+                }
+                else {
+                    setTimeout (function(){
+                        $(selectors.questionWrapper).html(newQuestionHtml);
+                    }, 4000);
                 }
             });
         }
@@ -101,11 +133,9 @@ var AnswerPage = function (options) {
 
     var countDownDate = new Date(pageOptions.expiringAt).getTime();
 
-    var x = setInterval(function() {
+    var x = setInterval(function () {
         var now = Math.floor(new Date().getTime() / 1000);
         var distance = countDownDate - now;
-
-        console.log(distance);
 
         var minutes = Math.floor((distance % (60 * 60)) / 60);
         var seconds = Math.floor(distance % (60));
@@ -118,4 +148,19 @@ var AnswerPage = function (options) {
             document.getElementById("time-value").innerHTML = "Час вийшов!";
         }
     }, 1000);
+
+    function visualizeCorrectAnswer(value) {
+        var count = 0,
+            $div = $(value),
+            interval = setInterval(function () {
+                if ($div.hasClass('correct')) {
+                    $div.removeClass('correct');
+                    ++count;
+                }
+                else
+                    $div.addClass('correct');
+
+                if (count === 4) clearInterval(interval);
+            }, 200);
+    }
 };

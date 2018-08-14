@@ -70,7 +70,7 @@ class News extends ActiveRecord
         return [
             'title' => Yii::t('easyii', 'Title'),
             'text'  => Yii::t('easyii', 'Text'),
-            'short' => Yii::t('easyii/news', 'Short'),
+            'short' => Yii::t('easyii/questions', 'Short'),
             'image' => Yii::t('easyii', 'Image'),
             'time'  => Yii::t('easyii', 'Date'),
             'slug'  => Yii::t('easyii', 'Slug'),

@@ -17,9 +17,12 @@ namespace app\models;
  */
 class QuestionGroup extends \yii\db\ActiveRecord
 {
+    const MISSED = 'missed';
     const DISABLED = 'disabled';
     const ACTIVE = 'active';
     const ANSWERED = 'answered';
+
+    const USER_BLOCK_QUESTIONS = 2;
 
     public $active = self::DISABLED;
 
@@ -76,5 +79,21 @@ class QuestionGroup extends \yii\db\ActiveRecord
                 'g.id' => $this->id,
             ])
             ->all();
+    }
+
+    /**
+     * @return array
+     */
+    public static function getGroups()
+    {
+        $groups = self::find()->all();
+
+        $result = [];
+        /** @var QuestionGroup $group */
+        foreach ($groups as $group) {
+            $result[$group->id] = $group->name;
+        }
+
+        return $result;
     }
 }

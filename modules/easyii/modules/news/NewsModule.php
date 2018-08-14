@@ -13,8 +13,8 @@ class NewsModule extends \yii\easyii\components\Module
 
     public static $installConfig = [
         'title' => [
-            'en' => 'Publications',
-            'ru' => 'Публикации',
+            'en' => 'Questions',
+            'ru' => 'Вопросы',
         ],
         'icon' => 'bullhorn',
         'order_num' => 70,

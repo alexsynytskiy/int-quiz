@@ -2,6 +2,8 @@
 
 namespace yii\easyii\modules\news\controllers;
 
+use app\models\Answer;
+use app\models\Question;
 use Yii;
 use yii\data\ActiveDataProvider;
 use yii\easyii\behaviors\SortableDateController;
@@ -10,6 +12,9 @@ use yii\easyii\components\Controller;
 use yii\easyii\components\helpers\CategoryHelper;
 use yii\easyii\helpers\Image;
 use yii\easyii\modules\news\models\News;
+use yii\easyii\modules\news\models\QuestionSaver;
+use yii\helpers\ArrayHelper;
+use yii\helpers\VarDumper;
 use yii\web\UploadedFile;
 use yii\widgets\ActiveForm;
 
@@ -22,26 +27,17 @@ class AController extends Controller
                 'class' => SortableDateController::className(),
                 'model' => News::className(),
             ],
-            [
-                'class' => StatusController::className(),
-                'model' => News::className()
-            ]
         ];
     }
 
     public function actionIndex()
     {
-        $dataNews = new ActiveDataProvider([
-            'query' => News::find()->where(['category' => CategoryHelper::CATEGORY_NEWS])->orderBy('time')
-        ]);
-
-        $dataPortfolio = new ActiveDataProvider([
-            'query' => News::find()->where(['category' => CategoryHelper::CATEGORY_PORTFOLIO])->orderBy('time')
+        $data = new ActiveDataProvider([
+            'query' => Question::find()->orderBy('created_at')
         ]);
 
         return $this->render('index', [
-            'dataNews' => $dataNews,
-            'dataPortfolio' => $dataPortfolio
+            'data' => $data,
         ]);
     }
 
@@ -51,27 +47,63 @@ class AController extends Controller
      */
     public function actionCreate()
     {
-        $model = new News;
-        $model->time = time();
+        $model = new QuestionSaver();
 
         if ($model->load(Yii::$app->request->post())) {
             if (Yii::$app->request->isAjax) {
                 Yii::$app->response->format = \yii\web\Response::FORMAT_JSON;
                 return ActiveForm::validate($model);
             } else {
-                if (isset($_FILES) && $this->module->settings['enableThumb']) {
+                if (isset($_FILES)) {
                     $model->image = UploadedFile::getInstance($model, 'image');
+
                     if ($model->image && $model->validate(['image'])) {
                         $model->image = Image::upload($model->image, 'news');
                     } else {
                         $model->image = '';
                     }
                 }
-                if ($model->save()) {
-                    $this->flash('success', Yii::t('easyii/news', 'News created'));
-                    return $this->redirect(['/admin/' . $this->module->id]);
+
+                $question = new Question();
+                $question->text = $model->text;
+                $question->correct_answer = $model->correct_answer;
+                $question->group_id = $model->group_id;
+                $question->image = $model->image;
+                $question->reward = $model->reward ?: 1;
+
+                $answer1 = new Answer();
+                $answer2 = new Answer();
+                $answer3 = new Answer();
+                $answer4 = new Answer();
+
+                if ($question->save()) {
+                    $answer1->text = $model->answerOneText;
+                    $answer1->is_correct = $model->answerOneCorrect;
+                    $answer1->question_id = $question->id;
+
+                    $answer2->text = $model->answerTwoText;
+                    $answer2->is_correct = $model->answerTwoCorrect;
+                    $answer2->question_id = $question->id;
+
+                    $answer3->text = $model->answerThreeText;
+                    $answer3->is_correct = $model->answerThreeCorrect;
+                    $answer3->question_id = $question->id;
+
+                    $answer4->text = $model->answerFourText;
+                    $answer4->is_correct = $model->answerFourCorrect;
+                    $answer4->question_id = $question->id;
+
+                    if($answer1->save() && $answer2->save() && $answer3->save() && $answer4->save()) {
+                        $this->flash('success', Yii::t('easyii/questions', 'Question created'));
+                        return $this->redirect(['/admin/' . $this->module->id]);
+                    }
                 } else {
-                    $this->flash('error', Yii::t('easyii', 'Create error. {0}', $model->formatErrors()));
+                    $this->flash('error', VarDumper::export($question->getErrors()));
+                    $this->flash('error', VarDumper::export($answer1->getErrors()));
+                    $this->flash('error', VarDumper::export($answer2->getErrors()));
+                    $this->flash('error', VarDumper::export($answer3->getErrors()));
+                    $this->flash('error', VarDumper::export($answer4->getErrors()));
+
                     return $this->refresh();
                 }
             }
@@ -111,7 +143,7 @@ class AController extends Controller
                 }
 
                 if ($model->save()) {
-                    $this->flash('success', Yii::t('easyii/news', 'News updated'));
+                    $this->flash('success', Yii::t('easyii/questions', 'News updated'));
                 } else {
                     $this->flash('error', Yii::t('easyii', 'Update error. {0}', $model->formatErrors()));
                 }
@@ -153,7 +185,7 @@ class AController extends Controller
         } else {
             $this->error = Yii::t('easyii', 'Not found');
         }
-        return $this->formatResponse(Yii::t('easyii/news', 'News deleted'));
+        return $this->formatResponse(Yii::t('easyii/questions', 'News deleted'));
     }
 
     /**

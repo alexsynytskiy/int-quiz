@@ -175,11 +175,14 @@ class SiteController extends Controller
                 }
             }
 
-            if ($answersCount < count($group->questions) &&
+            if ($answersCount < QuestionGroup::USER_BLOCK_QUESTIONS &&
                 $currentTime >= strtotime($group->starting_at) && $currentTime <= strtotime($group->ending_at)) {
                 $group->active = QuestionGroup::ACTIVE;
-            } elseif ($answersCount === count($group->questions)) {
+            } elseif (($answersCount === 1 && $currentTime > strtotime($group->ending_at)) ||
+                $answersCount === QuestionGroup::USER_BLOCK_QUESTIONS) {
                 $group->active = QuestionGroup::ANSWERED;
+            } elseif ($answersCount === 0 && $currentTime > strtotime($group->ending_at)) {
+                $group->active = QuestionGroup::MISSED;
             }
         }
 
@@ -270,7 +273,7 @@ class SiteController extends Controller
                 }
             }
 
-            if ($answersCount === count($group->questions)) {
+            if ($answersCount === QuestionGroup::USER_BLOCK_QUESTIONS) {
                 foreach ($userAnswers as $userAnswer) {
                     if (!$userAnswer->answer->is_correct) {
                         $wrongAnswers[] = $userAnswer->question->correct_answer;
