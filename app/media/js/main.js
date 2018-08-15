@@ -4,7 +4,7 @@ var screenH;
 var screenW;
 var stars = [];
 var fps = 10;
-var numStars = 4000;
+var numStars = 2000;
 var colors = [
         [159, 108, 199],
         [65, 84, 100],
@@ -60,7 +60,7 @@ $(document).ready(function () {
     }
 
     if(screenW >=991) {
-        setInterval(animate, 1000 / fps);
+        setInterval(animate, 3000 / fps);
     }
 });
 

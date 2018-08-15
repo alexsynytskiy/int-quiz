@@ -5,8 +5,17 @@
 $countAnswered = 2 - $blockQuestion->emptyQuestionsCount;
 ?>
 
-<div class="question" data-id="<?= $blockQuestion->id ?>" data-group-id="<?= $blockQuestion->group_id ?>">
-    <?= $blockQuestion->text ?>
+<div class="question clearfix" data-id="<?= $blockQuestion->id ?>" data-group-id="<?= $blockQuestion->group_id ?>">
+    <?php if($blockQuestion->image): ?>
+        <div class="question-text">
+            <?= $blockQuestion->text ?>
+        </div>
+        <div class="image">
+            <img src="<?= $blockQuestion->image ?>">
+        </div>
+    <?php else: ?>
+        <?= $blockQuestion->text ?>
+    <?php endif; ?>
 </div>
 
 <div class="timer">
@@ -42,4 +51,3 @@ $countAnswered = 2 - $blockQuestion->emptyQuestionsCount;
         <?php endfor; ?>
     </div>
 </div>
-

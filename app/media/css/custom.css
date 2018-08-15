@@ -652,6 +652,21 @@ form .already a {
     display: none;
 }
 
+.question .question-text {
+    float: left;
+    height: 100px;
+    line-height: 100px;
+}
+
+.question .image {
+    float: right;
+}
+
+.question .image img {
+    max-width: 100px;
+    margin-bottom: 0;
+}
+
 @media (max-width: 1199px) {
 
 }
