@@ -497,7 +497,7 @@ form .already a {
 .steps-block.profile .question {
     text-align: left;
     font-size: 24px;
-    line-height: 20px;
+    line-height: 28px;
     padding-bottom: 20px;
     border-bottom: 2px solid #45D6AD;
     margin-bottom: 20px;
@@ -669,7 +669,43 @@ form .already a {
 }
 
 @media (max-width: 767px) {
+    .steps-block.profile a.link-additional {
+        margin-left: 21px;
+    }
 
+    .steps-block.profile .questions .block .left-part .sub-title {
+        line-height: 15px;
+        padding-right: 15px;
+        font-size: 14px;
+        padding-top: 0;
+    }
+
+    .steps-block.profile .questions .block .left-part .title {
+        font-size: 21px;
+        line-height: 21px;
+        padding-top: 25px;
+    }
+
+    .steps-block.profile .separator-space {
+        height: 20px;
+    }
+
+    .steps-block.profile .profile-navigation {
+        margin-top: 20px;
+    }
+
+    .steps-block.profile .logo {
+        margin: 0 auto;
+        float: none;
+        height: 60px;
+        background-size: 180px 60px;
+        width: 182px;
+    }
+
+    .steps-block.profile .answer .text {
+        padding-left: 15px;
+        padding-right: 15px;
+    }
 }
 
 @media (min-width: 768px) {

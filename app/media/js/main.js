@@ -59,7 +59,9 @@ $(document).ready(function () {
         stars.push(star);
     }
 
-    setInterval(animate, 1000 / fps);
+    if(screenW >=991) {
+        setInterval(animate, 1000 / fps);
+    }
 });
 
 /**

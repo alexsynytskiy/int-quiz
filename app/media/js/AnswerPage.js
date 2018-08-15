@@ -120,7 +120,9 @@ var AnswerPage = function (options) {
                 })
             ).then(function (data, textStatus, jqXHR) {
                 if (!newQuestion) {
-                    $(location).attr('href', url).delay(2000);
+                    setTimeout (function(){
+                        $(location).attr('href', url);
+                    }, 4000);
                 }
                 else {
                     setTimeout (function(){
@@ -160,7 +162,10 @@ var AnswerPage = function (options) {
                 else
                     $div.addClass('correct');
 
-                if (count === 4) clearInterval(interval);
+                if (count === 4) {
+                    $div.addClass('correct');
+                    clearInterval(interval);
+                };
             }, 200);
     }
 };
