@@ -24,9 +24,13 @@ $baseUrl = $asset->baseUrl;
         Вітаємо з проходженням <?= $group->id ?>-го блоку запитань!
     </div>
 
+    <div class="new-info about-event">
+        <?= $group->completed_data ?>
+    </div>
+
     <?php if($wrongAnswers): ?>
-        <div class="new-info">
-            Тепер ти знаеш що: <br>
+        <div class="new-info about-event">
+            <div class="block-finished-sub-title">Тепер ти знаеш що:</div>
             <?php foreach ($wrongAnswers as $answer): ?>
                 <?= $answer ?><br>
             <?php endforeach; ?>

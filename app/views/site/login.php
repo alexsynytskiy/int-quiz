@@ -11,7 +11,7 @@ $this->title = 'Вход на сайт';
 
 <div class="steps-block login clearfix">
     <div class="logo"></div>
-    <div class="step-title"><?= 'День народження компанії' ?></div>
+    <div class="step-title"><?= 'Святкування Дня компанії' ?></div>
     <div class="step-subtitle"><?= 'Вхід' ?></div>
     <div class="social-items">
         <div class="row">

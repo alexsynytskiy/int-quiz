@@ -9,6 +9,12 @@
             </div>
             Вихід
         </a>
+        <a href='mailto:kkovalchat@intellias.com,kkozlova@intellias.com?subject=Гра до Дня компанії, техпідтримка' class="link-additional">
+            <div class="link-icon">
+                <div class="help"></div>
+            </div>
+            Техпідтримка
+        </a>
         <a href="<?= \yii\helpers\Url::to(['/site/game-rules']) ?>" class="link-additional">
             <div class="link-icon">
                 <div class="rules"></div>
@@ -20,12 +26,6 @@
                 <div class="about"></div>
             </div>
             Про подію
-        </a>
-        <a href="#" class="link-additional">
-            <div class="link-icon">
-                <div class="help"></div>
-            </div>
-            Help
         </a>
     </div>
 </div>

@@ -4,8 +4,18 @@ var ProfilePage = function (options) {
     }, options);
 
     var selectors = {
-        blockStart: '#block-start'
+        blockStart: '#block-start',
+        block: '.block',
+        leftPart: '.left-part',
+        rightPart: '.right-part'
     };
+
+    var $blocks = $(selectors.block);
+
+    ($blocks) && $.each($blocks, function (index, value) {
+        var leftHeight = $(value).find(selectors.leftPart).height();
+        $(value).find(selectors.rightPart).height(leftHeight);
+    });
 
     $('body').on("click", selectors.blockStart, function (e) {
         e.preventDefault();

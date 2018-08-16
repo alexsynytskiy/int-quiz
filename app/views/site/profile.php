@@ -16,7 +16,7 @@ $baseUrl = $asset->baseUrl;
 <div class="steps-block profile clearfix">
     <?= $this->render('/_blocks/profile-header') ?>
 
-    <div class="separator-space"></div>
+    <div class="separator-space" style="height: 30px;"></div>
 
     <div class="statistics">
         <div class="statistics-wrapper clearfix">
@@ -32,8 +32,14 @@ $baseUrl = $asset->baseUrl;
         <?php foreach ($questionGroups as $group): ?>
             <div class="block <?= $group->active ?> clearfix">
                 <div class="left-part">
-                    <div class="title"><?= $group->name ?></div>
-                    <div class="sub-title"><?= $group->description ?></div>
+                    <?php if(in_array($group->active, [
+                            QuestionGroup::MISSED,
+                            QuestionGroup::ANSWERED],false)): ?>
+                        <div class="sub-title info"><?= $group->completed_data ?></div>
+                    <?php elseif(in_array($group->active, [QuestionGroup::ACTIVE,QuestionGroup::DISABLED],false)): ?>
+                        <div class="title"><?= $group->name ?></div>
+                        <div class="sub-title"><?= $group->description ?></div>
+                    <?php endif; ?>
                 </div>
                 <div class="right-part">
                     <div class="numbers <?= $group->active ?>">

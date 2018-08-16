@@ -14,6 +14,10 @@ var AnswerPage = function (options) {
 
     var selection = {state: true, answerId: null, questionId: null};
 
+    var stateHolder = {
+        answerAction: false
+    };
+
     $('body').on("mousedown", selectors.answer, function (e) {
         if ($(this).hasClass('selected')) {
             $(this).removeClass('selected');
@@ -43,6 +47,10 @@ var AnswerPage = function (options) {
     }).on("click", selectors.confirm, function (e) {
         e.preventDefault();
 
+        if(stateHolder.answerAction) {
+            return false;
+        }
+
         var url = document.location.origin,
             newQuestion = false,
             newQuestionHtml = '';
@@ -60,6 +68,10 @@ var AnswerPage = function (options) {
         }
         else {
             var answerId = $answer.data('id');
+
+            $('#submit-answer').hide();
+
+            stateHolder.answerAction = true;
 
             $.when(
                 $.ajax({
@@ -116,6 +128,8 @@ var AnswerPage = function (options) {
                                 }
                             }
                         }
+
+                        stateHolder.answerAction = false;
                     }
                 })
             ).then(function (data, textStatus, jqXHR) {
@@ -127,6 +141,7 @@ var AnswerPage = function (options) {
                 else {
                     setTimeout (function(){
                         $(selectors.questionWrapper).html(newQuestionHtml);
+                        $('#submit-answer').show();
                     }, 4000);
                 }
             });
@@ -165,7 +180,7 @@ var AnswerPage = function (options) {
                 if (count === 4) {
                     $div.addClass('correct');
                     clearInterval(interval);
-                };
+                }
             }, 200);
     }
 };

@@ -11,7 +11,7 @@ $this->title = 'Реєстрація';
 
 <div class="steps-block register clearfix">
     <div class="logo"></div>
-    <div class="step-title"><?= 'День народження компанії' ?></div>
+    <div class="step-title"><?= 'Святкування Дня компанії' ?></div>
     <div class="step-subtitle"><?= 'Реєстрація' ?></div>
     <div class="social-items">
         <div class="row">
