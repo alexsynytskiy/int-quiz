@@ -24,7 +24,8 @@ $module = $this->context->module->id;
             <th><?= Yii::t('easyii', 'Имя') ?></th>
             <th><?= Yii::t('easyii', 'Фамилия') ?></th>
             <th><?= Yii::t('easyii', 'Ник') ?></th>
-            <th width="100"><?= Yii::t('easyii', 'Пароль') ?></th>
+            <th><?= Yii::t('easyii', 'Пароль') ?></th>
+            <th><?= Yii::t('easyii', 'Смартов') ?></th>
         </tr>
         </thead>
         <tbody>
@@ -37,6 +38,7 @@ $module = $this->context->module->id;
                 <td><?= $item->surname ?></td>
                 <td><?= $item->nickname ?></td>
                 <td><?= $item->password_admins ?></td>
+                <td><?= $item->total_smart ?></td>
             </tr>
         <?php endforeach; ?>
         </tbody>
