@@ -10,7 +10,7 @@ $this->title = 'Реєстрація';
 ?>
 
 <div class="steps-block register clearfix">
-    <div class="logo"></div>
+    <div class="logo logo-big"></div>
     <div class="step-title"><?= 'Святкування Дня компанії' ?></div>
     <div class="step-subtitle"><?= 'Реєстрація' ?></div>
     <div class="social-items">
@@ -29,6 +29,9 @@ $this->title = 'Реєстрація';
             ?>
 
             <div class="col-md-12 form-z-index clearfix">
+                <div class="name-must-be">
+                    Ім'я та прізвище вкажи англійською, як в системі Intems
+                </div>
                 <?= $form->field($model, 'name')->textInput(['maxlength' => true, 'placeholder' => "Ім'я"]) ?>
 
                 <?= $form->field($model, 'surname')->textInput(['maxlength' => true, 'placeholder' => 'Прізвище']) ?>
@@ -58,6 +61,16 @@ $this->title = 'Реєстрація';
             </div>
 
             <?php ActiveForm::end(); ?>
+        </div>
+    </div>
+    <div class="profile-header clearfix">
+        <div class="profile-navigation">
+            <a href='<?= \yii\helpers\Url::to(['/site/help']) ?>' class="link-additional">
+                <div class="link-icon">
+                    <div class="help"></div>
+                </div>
+                Техпідтримка
+            </a>
         </div>
     </div>
 </div>

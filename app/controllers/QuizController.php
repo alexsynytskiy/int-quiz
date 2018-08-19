@@ -27,6 +27,12 @@ class QuizController extends Controller
     {
         $errorResponse = ['status' => 'error', 'message' => 'Щось пішло не так..'];
 
+        if (!\Yii::$app->mutex->acquire('multiple-agreement')) {
+            \Yii::info('Пользователь попытался выполнить несколько раз подряд вход');
+
+            return $errorResponse;
+        }
+
         try {
             \Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -76,6 +82,12 @@ class QuizController extends Controller
     {
         $errorResponse = ['status' => 'error', 'message' => 'Щось пішло не так..'];
 
+        if (!\Yii::$app->mutex->acquire('multiple-start-block')) {
+            \Yii::info('Пользователь попытался выполнить несколько раз подряд вход');
+
+            return $errorResponse;
+        }
+
         try {
             \Yii::$app->response->format = Response::FORMAT_JSON;
 
@@ -113,6 +125,12 @@ class QuizController extends Controller
     public function actionAnswerCheck()
     {
         $errorResponse = ['status' => 'error', 'message' => 'Щось пішло не так..'];
+
+        if (!\Yii::$app->mutex->acquire('multiple-answer-check')) {
+            \Yii::info('Пользователь попытался выполнить несколько раз подряд вход');
+
+            return $errorResponse;
+        }
 
         try {
             \Yii::$app->response->format = Response::FORMAT_JSON;

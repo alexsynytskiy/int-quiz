@@ -1,8 +1,8 @@
 <?php
-$this->title = $model->title;
+/** @var $model \yii\easyii\modules\news\models\QuestionSaver */
+
+$this->title = $model->text;
 ?>
+
 <?= $this->render('_menu') ?>
-
-<?php if($this->context->module->settings['enablePhotos']) echo $this->render('_submenu', ['model' => $model]) ?>
-
 <?= $this->render('_form', ['model' => $model]) ?>

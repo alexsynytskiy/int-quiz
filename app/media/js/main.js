@@ -133,7 +133,7 @@ Star.prototype.draw = function () {
     context.closePath();
     context.fillStyle = "rgba(255, 255, 200, " + this.opacity + ")";
     context.shadowBlur = 5;
-    context.shadowColor = '#ffff33';
+    context.shadowColor = '#fff';
     context.fill();
 
     context.restore();

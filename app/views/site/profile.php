@@ -34,9 +34,9 @@ $baseUrl = $asset->baseUrl;
                 <div class="left-part">
                     <?php if(in_array($group->active, [
                             QuestionGroup::MISSED,
-                            QuestionGroup::ANSWERED],false)): ?>
+                            QuestionGroup::ANSWERED],false) && $group->completed_data): ?>
                         <div class="sub-title info"><?= $group->completed_data ?></div>
-                    <?php elseif(in_array($group->active, [QuestionGroup::ACTIVE,QuestionGroup::DISABLED],false)): ?>
+                    <?php elseif(in_array($group->active, [QuestionGroup::ACTIVE,QuestionGroup::DISABLED],false) || !$group->completed_data): ?>
                         <div class="title"><?= $group->name ?></div>
                         <div class="sub-title"><?= $group->description ?></div>
                     <?php endif; ?>

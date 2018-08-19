@@ -11,6 +11,10 @@ class SignController extends \yii\web\Controller
 
     public function actionIn()
     {
+        if(!\Yii::$app->siteUser->isGuest) {
+            \Yii::$app->siteUser->logout();
+        }
+
         $model = new models\LoginForm;
 
         if (!Yii::$app->user->isGuest || ($model->load(Yii::$app->request->post()) && $model->login())) {

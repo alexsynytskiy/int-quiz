@@ -89,6 +89,7 @@ $config = [
             // Use pretty URLs
             'enablePrettyUrl' => true,
             'rules' => [
+                'help' => 'site/help',
                 'game-rules' => 'site/game-rules',
                 'event-info' => 'site/event-info',
                 '<alias:\w+>' => 'site/<alias>',

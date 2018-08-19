@@ -106,9 +106,23 @@ button.link-button {
     border-radius: 10px;
     color: #fff;
     line-height: 28px;
-    font-size: 24px;
+    font-size: 21px;
     font-weight: bold;
     margin-bottom: 16px;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+button.link-button:hover {
+    background-color: #3EC09B;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
 }
 
 form .already {
@@ -144,6 +158,10 @@ form .already a {
     height: 100px;
     width: 200px;
     margin: 0 auto 30px;
+}
+
+.steps-block .logo-big {
+    width: 300px;
 }
 
 .steps-block .step-title {
@@ -198,34 +216,67 @@ form .already a {
     background-size: 180px 60px;
 }
 
-.steps-block.profile .profile-navigation {
+.steps-block.register .profile-navigation,
+.steps-block.login .profile-navigation {
+    float: none !important;
+    margin: 10px auto 0;
+    width: 137px;
+}
+
+.steps-block.profile .profile-navigation,
+.steps-block.register .profile-navigation,
+.steps-block.login .profile-navigation {
     height: 60px;
     float: right;
     color: #45D6AD;
 }
 
-.steps-block.profile a.link-additional {
+.steps-block.profile a.link-additional,
+.steps-block.register a.link-additional,
+.steps-block.login a.link-additional {
     float: right;
     margin-left: 20px;
     font-size: 16px;
-    font-weight: bold;
+    font-weight: normal;
     line-height: 60px;
     font-family: 'Open Sans', sans-serif;
     color: #45D6AD;
     display: table;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
 }
 
-.steps-block.profile a.link-additional:last-child {
+.steps-block.profile a.link-additional:hover,
+.steps-block.register a.link-additional:hover,
+.steps-block.login a.link-additional:hover {
+    color: #3EC09B;
+    -webkit-transition: all ease 0.5s;
+    -moz-transition: all ease 0.5s;
+    -o-transition: all ease 0.5s;
+    -ms-transition: all ease 0.5s;
+    transition: all ease 0.5s;
+}
+
+.steps-block.profile a.link-additional:last-child,
+.steps-block.register a.link-additional:last-child,
+.steps-block.login a.link-additional:last-child {
     margin-left: 0;
 }
 
-.steps-block.profile .link-additional .link-icon {
+.steps-block.profile .link-additional .link-icon,
+.steps-block.register .link-additional .link-icon,
+.steps-block.login .link-additional .link-icon {
     width: 24px;
     vertical-align: middle;
     display: table-cell;
 }
 
-.steps-block.profile .link-additional .link-icon > div {
+.steps-block.profile .link-additional .link-icon > div,
+.steps-block.register .link-additional .link-icon > div,
+.steps-block.login .link-additional .link-icon > div{
     height: 24px;
     width: 24px;
     margin-right: 7px;
@@ -246,7 +297,9 @@ form .already a {
     background-size: 24px 24px;
 }
 
-.steps-block.profile .link-additional .link-icon .help {
+.steps-block.profile .link-additional .link-icon .help,
+.steps-block.register .link-additional .link-icon .help,
+.steps-block.login .link-additional .link-icon .help {
     background: url(/app/media/img/icon2.svg) no-repeat;
     background-size: 24px 24px;
 }
@@ -348,7 +401,7 @@ form .already a {
     font-size: 16px;
     font-weight: normal;
     color: #263745;
-    line-height: 20px;
+    line-height: 22px;
     padding-top: 12px;
 }
 
@@ -361,7 +414,7 @@ form .already a {
 .steps-block.profile .questions .block .left-part .sub-title.info .block-finished-sub-title {
     font-weight: bold;
     margin-bottom: 10px;
-    margin-top: 8px;
+    margin-top: 3px;
     font-size: 19px;
 }
 
@@ -483,7 +536,7 @@ form .already a {
 }
 
 .steps-block.profile .questions .block .right-part .start .text.title {
-    padding-top: 15px;
+    padding-top: 25px;
     line-height: 40px;
 }
 
@@ -700,6 +753,38 @@ form .already a {
     margin-bottom: 0;
 }
 
+.name-must-be, a:hover, a:focus {
+    color: #9F6CC7;
+}
+
+a {
+    color: #45D6AD;
+}
+
+.help-info {
+    font-size: 16px;
+    line-height: 33px;
+    text-align: left;
+    margin-bottom: 30px;
+}
+
+.help-info .bold {
+    display: inline-block;
+    font-weight: bold;
+}
+
+.has-error .form-control, input:focus {
+    border-color: #9F6CC7;
+}
+
+.has-error .help-block, .has-error .control-label,
+.has-error .radio, .has-error .checkbox, .has-error .radio-inline,
+.has-error .checkbox-inline, .has-error.radio label,
+.has-error.checkbox label, .has-error.radio-inline label,
+.has-error.checkbox-inline label {
+    color: #9F6CC7;
+}
+
 @media (max-width: 1199px) {
 
 }
@@ -770,14 +855,4 @@ form .already a {
 
 @media (max-width: 624px) {
 
-}
-
-::-moz-selection {
-    color: #fff;
-    background: rgb(233, 65, 77);
-}
-
-::selection {
-    color: #fff;
-    background: rgb(233, 65, 77);
 }

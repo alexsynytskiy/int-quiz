@@ -17,7 +17,7 @@ $baseUrl = $asset->baseUrl;
     <div class="separator-space"></div>
 
     <div class="image-group">
-        <img src="/app/media/img/<?= $group->hash ?>.png">
+        <img src="/app/media/img/<?= $group->hash ?>.svg">
     </div>
 
     <div class="congrads">

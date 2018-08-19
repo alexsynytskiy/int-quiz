@@ -55,7 +55,6 @@ h1, h2, h3, h4, h5, h6, .h1, .h2, .h3, .h4, .h5, .h6 {
 	text-transform: capitalize;
 }
 a {
-	color: #ff3799;
 	-webkit-transition: all .3s;
 	-moz-transition: all .3s;
 	-ms-transition: all .3s;
@@ -176,23 +175,6 @@ section {
 address {
 	line-height: 2;
 }
-span {
-	color: #ff3196;
-}
-footer {
-	float: left;
-	width: 100%;
-}
-.gradiant {
-	background-image: -moz-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%);
-	background-image: -webkit-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%);
-	background-image: -ms-linear-gradient(90deg, #2caab3 0%, #2c8cb3 100%);
-}
-.gradiant-horizontal {
-	background-image: -moz-linear-gradient(4deg, #2caab3 0%, #2c8cb3 100%);
-	background-image: -webkit-linear-gradient(4deg, #2caab3 0%, #2c8cb3 100%);
-	background-image: -ms-linear-gradient(4deg, #2caab3 0%, #2c8cb3 100%);
-}
 .section-title {
 	text-align: center;
 	width: 100%;
@@ -246,21 +228,6 @@ footer {
     background: -webkit-linear-gradient(right, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) no-repeat -2em 0;
     background: linear-gradient(to left, rgba(255, 255, 255, 0), rgba(255, 255, 255, 0.8), rgba(255, 255, 255, 0)) no-repeat -2em 0;
     background-size: 2em 100%;
-}
-.btn.btn-default {
-	color: #ea308b;
-	border: 1px solid #aaaaaa;
-	
-}
-.btn.btn-primary {
-	background: #ea308b;
-	border-color: #ea308b;
-	color: #ffffff;
-}
-.btn.btn-default:hover, .btn.btn-default:focus {
-	background: #ffffff;
-	border: 1px solid #ea308b;
-	color: #666666;
 }
 .btn.btn-primary:hover, .btn.btn-primary:focus {
 	background: #643cc1;
@@ -325,12 +292,6 @@ ul.nostyle i {
 	padding: 70px;
 	float: left;
 }
-.border-bottom {
-	border-bottom: solid 4px #ff3799;
-	width: 25%;
-	height: 15px;
-	display: block;
-}
 .padding-box-15 {
 	padding: 15px;
 }
@@ -357,13 +318,6 @@ ul.nostyle i {
 }
 .themebg {
 	background-color: #643cc1 !important;
-}
-.themegradient {
-	background: #643cc1; /* Old Browsers */
-	background: -webkit-linear-gradient(bottom left,#643cc1,#ff3196); /*Safari 5.1-6*/
-	background: -o-linear-gradient(bottom left,#643cc1,#ff3196); /*Opera 11.1-12*/
-	background: -moz-linear-gradient(bottom left,#643cc1,#ff3196); /*Fx 3.6-15*/
-	background: linear-gradient(bottom left, #643cc1, #ff3196); /*Standard*/
 }
 .yellowbg {
 	background: #f39c12 !important;

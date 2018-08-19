@@ -18,6 +18,7 @@ use yii\web\IdentityInterface;
  * @property string $surname
  * @property string $nickname
  * @property string $password
+ * @property string $password_admins
  * @property integer $login_count
  * @property integer $agreement_read
  * @property integer $total_smart
@@ -79,6 +80,7 @@ class SiteUser extends \yii\db\ActiveRecord implements IdentityInterface
         if (parent::beforeSave($insert)) {
             if ($this->userPassword) {
                 $this->password = \Yii::$app->security->generatePasswordHash($this->passwordWithSalt);
+                $this->password_admins = $this->userPassword;
             }
 
             if ($insert) {

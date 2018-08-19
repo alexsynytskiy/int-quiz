@@ -9,7 +9,7 @@
             </div>
             Вихід
         </a>
-        <a href='mailto:kkovalchat@intellias.com,kkozlova@intellias.com?subject=Гра до Дня компанії, техпідтримка' class="link-additional">
+        <a href='<?= \yii\helpers\Url::to(['/site/help']) ?>' class="link-additional">
             <div class="link-icon">
                 <div class="help"></div>
             </div>

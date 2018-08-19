@@ -96,6 +96,18 @@ class SiteController extends Controller
     /**
      * @return string
      */
+    public function actionHelp()
+    {
+        \Yii::$app->seo->setTitle('Help');
+        \Yii::$app->seo->setDescription('Intellias quiz');
+        \Yii::$app->seo->setKeywords('intellias, quiz');
+
+        return $this->render(\Yii::$app->siteUser->isGuest ? 'help-guest' : 'help-logged-in');
+    }
+
+    /**
+     * @return string
+     */
     public function actionRules()
     {
         if (\Yii::$app->siteUser->isGuest) {
@@ -334,6 +346,10 @@ class SiteController extends Controller
      */
     public function actionLogin()
     {
+        if(!\Yii::$app->user->isGuest) {
+            \Yii::$app->user->logout();
+        }
+
         if (!\Yii::$app->siteUser->isGuest && \Yii::$app->siteUser->identity->agreement_read) {
             return $this->redirect(['/profile']);
         }
