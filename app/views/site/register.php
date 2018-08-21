@@ -5,8 +5,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 $asset = \app\assets\AppAsset::register($this);
-
-$this->title = 'Реєстрація';
 ?>
 
 <div class="steps-block register clearfix">

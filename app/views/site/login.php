@@ -5,8 +5,6 @@ use yii\bootstrap\ActiveForm;
 use yii\helpers\Html;
 
 $asset = \app\assets\AppAsset::register($this);
-
-$this->title = 'Вход на сайт';
 ?>
 
 <div class="steps-block login clearfix">
@@ -18,6 +16,7 @@ $this->title = 'Вход на сайт';
             <?php
             $form = ActiveForm::begin([
                 'id'          => 'user-login',
+                'enableClientValidation' => true,
                 'options'     => [
                     'class'   => 'link-form',
                     'enctype' => 'multipart/form-data',

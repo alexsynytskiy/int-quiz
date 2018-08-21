@@ -7,8 +7,8 @@ $asset = \app\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 ?>
 
-<div class="steps-block rules clearfix">
-    <div class="logo"></div>
+<div class="steps-block rules clearfix" style="<?= \Yii::$app->siteUser->isGuest ? 'padding: 64px;' : 'padding: 20px;' ?>">
+    <div class="logo logo-big"></div>
     <div class="step-title"><?= 'Святкування Дня компанії' ?></div>
 
     <div class="text-info-block">

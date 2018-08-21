@@ -2,7 +2,7 @@
 
 <div class="profile-header clearfix">
     <div class="logo"></div>
-    <div class="profile-navigation">
+    <div class="profile-navigation clearfix">
         <a href="<?= \yii\helpers\Url::to(['/site/logout']) ?>" class="link-additional">
             <div class="link-icon">
                 <div class="exit"></div>

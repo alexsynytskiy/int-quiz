@@ -9,6 +9,11 @@ body {
     min-width: 474px;
 }
 
+.ios,
+.ios * {
+    cursor: pointer;
+}
+
 .clearfix:after {
     content: ".";
     display: block;
@@ -146,10 +151,6 @@ form .already a {
     width: 285px;
     padding: 15px;
     border: solid 2px #CBD5DC;
-}
-
-.field-registerform-captchauser, .field-loginform-captchauser {
-    height: 54px;
 }
 
 .steps-block .logo {
@@ -766,11 +767,13 @@ a {
     line-height: 33px;
     text-align: left;
     margin-bottom: 30px;
+    padding-left: 36px;
+    padding-right: 36px;
 }
 
 .help-info .bold {
     display: inline-block;
-    font-weight: bold;
+    font-weight: normal;
 }
 
 .has-error .form-control, input:focus {
@@ -784,6 +787,12 @@ a {
 .has-error.checkbox-inline label {
     color: #9F6CC7;
 }
+
+.field-registerform-captchauser img, .field-loginform-captchauser img {
+    margin: 0;
+}
+
+
 
 @media (max-width: 1199px) {
 
@@ -803,7 +812,9 @@ a {
 
 @media (max-width: 767px) {
     .steps-block.profile a.link-additional {
-        margin-left: 21px;
+        margin-left: 0;
+        width: 50%;
+        text-align: left;
     }
 
     .steps-block.profile .questions .block .left-part .sub-title {
@@ -824,7 +835,8 @@ a {
     }
 
     .steps-block.profile .profile-navigation {
-        margin-top: 20px;
+        margin-top: 30px;
+        height: 100%;
     }
 
     .steps-block.profile .logo {
@@ -838,6 +850,35 @@ a {
     .steps-block.profile .answer .text {
         padding-left: 15px;
         padding-right: 15px;
+    }
+
+    .profile-navigation {
+        margin-top: 17px;
+        height: 100%;
+        width: 360px;
+        display: block;
+        margin: 20px auto 0;
+    }
+
+    button.link-button,form#user-register, form#user-login {
+        max-width: 345px;
+    }
+
+    #registerform-captchauser, #loginform-captchauser {
+        width: 225px;
+    }
+
+    .new-info.about-event, .image-group img {
+        max-width: 600px;
+        width: 100%;
+    }
+
+    .main-rules .text-info-block {
+        padding: 0 !important;
+    }
+
+    .steps-block.rules.main-rules .separator-space {
+        height: 30px;
     }
 }
 

@@ -50,7 +50,7 @@ class QuizController extends Controller
             $userId = \Yii::$app->siteUser->identity->id;
             $user = SiteUser::findOne($userId);
 
-            if ($user) {
+            if ($user && !$user->agreement_read) {
                 if (!$user->answers || count($user->answers) !== 6) {
                     UserAnswer::deleteAll(['user_id' => $userId]);
                     QuestionsSetter::setUserQuestions();
@@ -251,7 +251,7 @@ class QuizController extends Controller
                         'status' => 'success',
                         'isCorrect' => $isAnswerCorrect,
                         'answerCorrectId' => $answerCorrectId,
-                        'message' => 'Молодець! Відповіді зараховано вчасно',
+                        'message' => 'Відповіді зараховано вчасно!',
                         'blockFinishedUrl' => '/block-finished/' . QuestionGroup::findOne($groupId)->hash,
                     ];
                 }

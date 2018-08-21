@@ -29,7 +29,7 @@ class AppAsset extends \yii\web\AssetBundle
         'plugins/isotope-portfolio/css/jquery.fancybox.css',
         'plugins/pnotify/pnotify.min.css',
         'css/jquery.bxslider.css',
-        'css/custom.css?version=7',
+        'css/custom.css?version=4',
     ];
 
     public $js = [
@@ -50,7 +50,7 @@ class AppAsset extends \yii\web\AssetBundle
         'js/RulesPage.js',
         'js/AnswerPage.js',
         'js/ProfilePage.js',
-        'js/main.js?version=3',
+        'js/main.js',
     ];
 
     public $publishOptions = [

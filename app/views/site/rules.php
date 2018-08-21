@@ -7,7 +7,7 @@ $asset = \app\assets\AppAsset::register($this);
 $baseUrl = $asset->baseUrl;
 ?>
 
-<div class="steps-block rules clearfix">
+<div class="steps-block rules main-rules clearfix">
     <div class="logo logo-big"></div>
     <div class="step-title"><?= 'Святкування Дня компанії' ?></div>
 
@@ -36,7 +36,7 @@ $baseUrl = $asset->baseUrl;
         Тематика питань: факти про Intellias та особливості космічних світів.
         <div class="margin-text">6 запитань поділені на 3 блоки по 2 запитання. Після проходження кожного блоку ти отримаєш частину необхідної
         для проходження місії інформації. А ще за кожну правильну відповідь тобі нараховується один смарт. Стан
-        рахунку смартів відображений у верхньому правому куті сторінки і буде переведений на твій рахунок протягом
+        рахунку смартів відображений у профілі користувача, і буде переведений на твій рахунок протягом
             місяця після проходження всієї гри.</div>
         <div class="margin-text">Блоки запитань активуються раз на тиждень і доступні лише 5 днів. Коли ти відкрив блок, то маєш 10 хвилин на
         обидва запитання. Для зручності біля блоків працює таймер зворотного відліку. Відкрити блок можна лише раз.
@@ -51,7 +51,9 @@ $baseUrl = $asset->baseUrl;
         якщо не встигаю за відведений час, то другого шансу заповнити цей тижневий блок не маю.
     </div>
 
-    <?= \yii\helpers\Html::submitButton('Далі', ['class' => 'link-button', 'id' => 'rules-read-agreement']) ?>
+    <?= !\Yii::$app->siteUser->identity->agreement_read ?
+        \yii\helpers\Html::submitButton('Далі', ['class' => 'link-button', 'id' => 'rules-read-agreement']) :
+        '' ?>
 
 </div>
 

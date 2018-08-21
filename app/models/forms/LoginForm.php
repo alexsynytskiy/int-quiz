@@ -67,7 +67,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            $errorMsg = 'Ник или пароль введены неверно.';
+            $errorMsg = 'Нік чи пароль вказані з помилкою.';
 
             try {
                 if (!$user) {
@@ -96,7 +96,7 @@ class LoginForm extends Model
         if (!$this->hasErrors()) {
             $user = $this->getUser();
 
-            $errorMsg = 'Вход на сайт запрещен.';
+            $errorMsg = 'Вхід на сайт заборонено.';
 
             try {
                 if (!$user) {

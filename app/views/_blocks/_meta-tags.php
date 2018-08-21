@@ -4,7 +4,7 @@
 
 <!-- Meta Tags -->
 <meta charset="<?= Yii::$app->charset ?>">
-<meta name="viewport" content="width=device-width, initial-scale=1">
+<meta name="viewport" content="width=device-width, maximum-scale=1.0, user-scalable=yes">
 <?= \yii\bootstrap\Html::csrfMetaTags() ?>
 <meta content="IE=edge" http-equiv="X-UA-Compatible">
 

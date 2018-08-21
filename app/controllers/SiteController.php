@@ -98,7 +98,7 @@ class SiteController extends Controller
      */
     public function actionHelp()
     {
-        \Yii::$app->seo->setTitle('Help');
+        \Yii::$app->seo->setTitle('Техпідтримка');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
@@ -114,7 +114,7 @@ class SiteController extends Controller
             return $this->redirect('/login');
         }
 
-        \Yii::$app->seo->setTitle('Rules');
+        \Yii::$app->seo->setTitle('Правила');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
@@ -132,7 +132,7 @@ class SiteController extends Controller
             return $status;
         }
 
-        \Yii::$app->seo->setTitle('Event info');
+        \Yii::$app->seo->setTitle('Про подію');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
@@ -150,7 +150,7 @@ class SiteController extends Controller
             return $status;
         }
 
-        \Yii::$app->seo->setTitle('Game rules');
+        \Yii::$app->seo->setTitle('Правила');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
@@ -168,7 +168,7 @@ class SiteController extends Controller
             return $status;
         }
 
-        \Yii::$app->seo->setTitle('Profile');
+        \Yii::$app->seo->setTitle('Профіль');
         \Yii::$app->seo->setDescription('Intellias quiz');
         \Yii::$app->seo->setKeywords('intellias, quiz');
 
@@ -224,6 +224,10 @@ class SiteController extends Controller
         $group = QuestionGroup::findOne(['hash' => $hash]);
 
         if ($group) {
+            \Yii::$app->seo->setTitle('Блок питань ' . $group->name);
+            \Yii::$app->seo->setDescription('Intellias quiz');
+            \Yii::$app->seo->setKeywords('intellias, quiz');
+
             /** @var UserAnswer[] $userAnswers */
             $userAnswers = UserAnswer::find()
                 ->alias('qa')
@@ -275,6 +279,10 @@ class SiteController extends Controller
         $group = QuestionGroup::findOne(['hash' => $hash]);
 
         if ($group) {
+            \Yii::$app->seo->setTitle('Блок питань ' . $group->name . ' завершено');
+            \Yii::$app->seo->setDescription('Intellias quiz');
+            \Yii::$app->seo->setKeywords('intellias, quiz');
+
             $userAnswers = $group->userAnswers;
             $answersCount = 0;
             $wrongAnswers = [];
@@ -316,6 +324,10 @@ class SiteController extends Controller
 
             throw new BadRequestHttpException();
         }
+
+        \Yii::$app->seo->setTitle('Реєстрація');
+        \Yii::$app->seo->setDescription('Intellias quiz');
+        \Yii::$app->seo->setKeywords('intellias, quiz');
 
         $model = new RegisterForm();
 
@@ -359,6 +371,10 @@ class SiteController extends Controller
 
             throw new BadRequestHttpException();
         }
+
+        \Yii::$app->seo->setTitle('Вхід');
+        \Yii::$app->seo->setDescription('Intellias quiz');
+        \Yii::$app->seo->setKeywords('intellias, quiz');
 
         $model = new LoginForm();
 

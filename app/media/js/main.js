@@ -23,6 +23,13 @@ var colors = [
     colorIndices = [0, 1, 2, 3],
     gradientSpeed = 0.0005;
 
+$.fn.extend({
+    equalHeights: function(options){
+      var ah=(Math.max.apply(null, $(this).map(function(){ return $(this).height(); }).get()));
+      if (typeof ah=='number') $(this).height(ah);
+    }
+ });
+
 $(document).ready(function () {
     'use strict';
 
@@ -30,6 +37,16 @@ $(document).ready(function () {
     $(window).resize(function () {
         windowSize();
     });
+
+    const IS_IOS = /iPad|iPhone|iPod/.test(navigator.userAgent) && !window.MSStream;
+
+    if (IS_IOS) {
+        document.documentElement.classList.add('ios');
+    }
+
+    $(window).resize(function() {
+        $('.answers .answer').equalHeights();
+    }).trigger('resize');
 
     setInterval(updateGradient, 10);
 
